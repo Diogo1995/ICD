@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<loja>
+	<clientes>
+	</clientes>
+	
+	<adulto>
+		<homem>
+			<vestuario>
+				<camisolas></camisolas>
+				<calcas></calcas>
+			</vestuario>
+			<calcado></calcado>
+			<acessorios></acessorios>
+		</homem>
+		<mulher>
+			<vestuario>
+				<camisolas></camisolas>
+				<calcas></calcas>
+			</vestuario>
+			<calcado></calcado>
+			<acessorios></acessorios>
+		</mulher>
+		<unisexo>
+			<vestuario>
+				<camisolas></camisolas>
+				<calcas></calcas>
+			</vestuario>
+			<calcado></calcado>
+			<acessorios></acessorios>
+		</unisexo>
+	</adulto>
+	<crianca>
+		<rapaz>
+			<vestuario>
+				<camisolas></camisolas>
+				<calcas></calcas>
+			</vestuario>
+			<calcado></calcado>
+			<acessorios></acessorios>
+		</rapaz>
+		<rapariga>
+			<vestuario>
+				<camisolas></camisolas>
+				<calcas></calcas>
+			</vestuario>
+			<calcado></calcado>
+			<acessorios></acessorios>
+		</rapariga>
+		<unisexo>
+			<vestuario>
+				<camisolas></camisolas>
+				<calcas></calcas>
+			</vestuario>
+			<calcado></calcado>
+			<acessorios></acessorios>
+		</unisexo>
+	</crianca>
+</loja>
