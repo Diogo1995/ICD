@@ -2,12 +2,38 @@
 
 <loja>
 	<clientes>
+		<cliente idutilizador="ID_1">
+			<nome>Antonio Pedrosa</nome>
+			<dataNascimento >1995/08/23</dataNascimento>
+			<numFiscal >456987123</numFiscal>
+		</cliente>
 	</clientes>
 	
 	<adulto>
 		<homem>
 			<vestuario>
-				<camisolas></camisolas>
+				<camisolas>
+					<camisola idcamisola="CID_1">
+						<descricao></descricao>
+						<marca></marca>
+						<imagem></imagem>
+						<Tamanhos>
+							<x/>
+							<m/>
+							<l/>
+						</Tamanhos>
+					</camisola>
+					<camisola2>
+						<descricao></descricao>
+						<marca></marca>
+						<imagem></imagem>
+						<Tamanhos>
+							<x></x>
+							<m></m>
+							<l></l>
+						</Tamanhos>
+					</camisola2>
+				</camisolas>
 				<calcas></calcas>
 			</vestuario>
 			<calcado></calcado>
@@ -56,4 +82,15 @@
 			<acessorios></acessorios>
 		</unisexo>
 	</crianca>
+	<acessorios>
+		<bolas>
+			<futebol>
+			</futebol>
+			<basketball>
+			</basketball>
+			<andeball>
+			</andeball>
+		</bolas>
+		
+	</acessorios>
 </loja>
