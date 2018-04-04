@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ListaUtilizadores>
+
+	<Utilizador DataNasc="1994-10-21" NIF="293827172" Nome="">
+		<Cliente/>
+	</Utilizador>
+	
+	<Utilizador DataNasc="1995-04-12" NIF="182938271" Nome="">
+		<Funcionário Local="Caixa"/>
+	</Utilizador>
+	
+	<Utilizador DataNasc="1997-01-01" NIF="125487698" Nome="">
+		<Funcionário Local="Loja"/>
+	</Utilizador>
+	
+<Utilizador DataNasc="1987-09-13" NIF="192817261" Nome="Diogo Diogo">
+<Cliente/>
+</Utilizador>
+</ListaUtilizadores>

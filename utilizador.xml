@@ -10,7 +10,11 @@
 		<Funcionário Local="Caixa"/>
 	</Utilizador>
 	
+<<<<<<< HEAD
 	<Utilizador Nome="Joana Joana" NIF="125487952" DataNasc="1993-09-29">
+=======
+	<Utilizador Nome="" NIF="125487698" DataNasc="1997-01-01">
+>>>>>>> 5074be39a0ad27db02077a1210d4687bff4aeda7
 		<Funcionário Local="Loja"/>
 	</Utilizador>
 	
