@@ -13,8 +13,8 @@ import org.xml.sax.SAXException;
 
 public class Loja {
 	
-	public final static String contexto = "src\\";
-	Document D = null; // representa a arvore DOM com o poema
+	public final static String contexto = "";
+	static Document D = null; // representa a arvore DOM com o poema
 
 	public Loja(String XMLdoc) {
 		XMLdoc = contexto + XMLdoc;
@@ -36,46 +36,8 @@ public class Loja {
 	}
 	
 	
-	/**Aqui entra assumindo que Ã© cliente**/
-	
-	public void menuLoja() {
-		char op;
-		Scanner sc = new Scanner(System.in);
-		do {
-			System.out.println();
-			System.out.println();
-			System.out.println("*** Catalogo Loja ***");
-			System.out
-					.println("1 - Equipamentos Masculinos.");
-			System.out
-					.println("2 - Equipamentos Femininos.");
-			System.out
-					.println("3 - Equipamentos CrianÃ§a.");
-			System.out.println("4 - AcessÃ³rios");
-			System.out.println("5 - Ver Lista De Compras.");
-			System.out.println("6 - Terminar SessÃ£o Cliente.");
-			System.out.println("0 - Terminar!");
-			String str = sc.nextLine();
-			if (str != null && str.length() > 0)
-				op = str.charAt(0);
-			else
-				op = ' ';
-			switch (op) {
-			case '1':
-				//apresenta();
-				break;
-			case '0':
-				break;
-			default:
-				System.out.println("OpÃ§Ã£o invÃ¡lida, esolha uma opÃ§Ã£o do menu.");
-			}
-		} while (op != '0');
-		sc.close();
-		System.out.println("Terminou a execuÃ§Ã£o.");
-		System.exit(0);
-	}
-	
 	public void menuAcesso() {
+		
 		char op;
 		Scanner sc = new Scanner(System.in);
 		do {
@@ -83,7 +45,7 @@ public class Loja {
 			System.out.println();
 			System.out.println("*** Login Loja ***");
 			System.out
-					.println("1 - Sign In.");
+					.println("1 - Login.");
 			System.out
 					.println("2 - Registrar");
 			System.out.println("0 - Terminar!");
@@ -94,18 +56,143 @@ public class Loja {
 				op = ' ';
 			switch (op) {
 			case '1':
+				String nif = menuLogin(sc);
+				System.out.println(nif);
+				if(login(nif).equals("Cliente")){
+					menuCliente(sc, nif);
+				}else if(login(nif).equals("Funcionario")) menuFuncionario(sc, nif);
+				break;
+			case '0':
+				break;
+			default:
+				System.out.println("Opção inválida, esolha uma opção do menu.");
+			}
+		} while (op != '0');
+		sc.close();
+		System.out.println("Terminou a execução.");
+		System.exit(0);
+	}
+
+
+	/**Aqui entra assumindo que é cliente**/
+	
+	public void menuCliente(Scanner sc, String nif) {
+		char op;
+		do {
+			System.out.println();
+			System.out.println();
+			System.out.println("*** Catalogo Loja ***");
+			System.out
+					.println("1 - Equipamentos Masculinos.");
+			System.out
+					.println("2 - Equipamentos Femininos.");
+			System.out
+					.println("3 - Equipamentos Criança.");
+			System.out.println("4 - Acessórios");
+			System.out.println("5 - Ver Lista De Compras.");
+			System.out.println("6 - Terminar Sessão.");
+			System.out.println("0 - Terminar!");
+			String str = sc.nextLine();
+			if (str != null && str.length() > 0)
+				op = str.charAt(0);
+			else
+				op = ' ';
+			switch (op) {
+			case '1':
 				//apresenta();
 				break;
 			case '0':
 				break;
 			default:
-				System.out.println("OpÃ§Ã£o invÃ¡lida, esolha uma opÃ§Ã£o do menu.");
+				System.out.println("Opção inválida, esolha uma opção do menu.");
 			}
 		} while (op != '0');
 		sc.close();
-		System.out.println("Terminou a execuÃ§Ã£o.");
+		System.out.println("Terminou a execução.");
 		System.exit(0);
 	}
+	
+	
+	public void menuFuncionario(Scanner sc, String nif) {
+		char op;
+		do {
+			System.out.println();
+			System.out.println();
+			System.out.println("*** Catalogo Loja ***");
+			System.out
+					.println("1 - .");
+			System.out
+					.println("2 - .");
+			System.out
+					.println("3 - .");
+			System.out.println("4 - ");
+			System.out.println("5 - .");
+			System.out.println("6 - Terminar Sessão.");
+			System.out.println("0 - Terminar!");
+			String str = sc.nextLine();
+			if (str != null && str.length() > 0)
+				op = str.charAt(0);
+			else
+				op = ' ';
+			switch (op) {
+			case '1':
+				//apresenta();
+				break;
+			case '0':
+				break;
+			default:
+				System.out.println("Opção inválida, esolha uma opção do menu.");
+			}
+		} while (op != '0');
+		sc.close();
+		System.out.println("Terminou a execução.");
+		System.exit(0);
+	}
+	
+	/**TODO
+	 * 
+	 * @param sc
+	 * @return
+	 */
+	private String menuLogin(Scanner sc) {
+		System.out.println("Introduza o seu NIF.");
+		String nif = sc.nextLine();
+		
+		while(!validarNif(nif)) {
+			if (nif.equals("0")) break;
+			System.out.println("NIF introduzido inválido. Introduza novamente o NIF.");
+			nif = sc.nextLine();
+		}
+		
+		return nif;
+	}
+	
+	/**TODO
+	 * 
+	 * @param nif
+	 * @return
+	 */
+	private boolean validarNif(String nif) {
+		if (nif.length() == 9) {
+			for (int i = 0; i < nif.length(); i++) {
+				if(!Character.isDigit(nif.charAt(i))) return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**TODO
+	 * 
+	 * @param nif
+	 * @return
+	 */
+	private String login(String nif) {
+		//TODO
+		return null;
+	}
+	
+	
 	
 	/**Ele comeca com a o login como cliente**/
 	
@@ -113,7 +200,7 @@ public class Loja {
 	
 		String lojaFileName =  "Equipamentos.xml";
 		Loja pm = new Loja(lojaFileName);
-		pm.menuAcesso();
+		if(D != null)pm.menuAcesso();
 	
 	}
 	
