@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Utilizador>
-		<Cliente Nome="" NIF="" DataNasc=""/>
-		<Funcionário Nome="" NIF="" DataNasc=""/>
-</Utilizador>
+<ListaUtilizadores>
+
+	<Utilizador Nome="" NIF="293827172" DataNasc="1994-10-21">
+		<Cliente/>
+	</Utilizador>
+	<Utilizador Nome="" NIF="182938271" DataNasc="1995-04-12">
+		<Funcionário Local="Caixa"/>
+	</Utilizador>
 	
+</ListaUtilizadores>

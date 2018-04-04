@@ -339,7 +339,7 @@ final public class XMLDoc {
 	public static void main(String[] args) {
 
 		
-		validDocXSD("peça.xml", "peça.xsd");
+		validDocXSD("utilizador.xml", "utilizador.xsd");
 		
 		/* String contexto = "WebContent\\xml";
 
