@@ -2,12 +2,16 @@
 
 <ListaUtilizadores>
 
-	<Utilizador Nome="" NIF="293827172" DataNasc="1994-10-21">
+	<Utilizador Nome="Pedro Pedro" NIF="293827172" DataNasc="1994-10-21">
 		<Cliente></Cliente>
 	</Utilizador>
 	
-	<Utilizador Nome="" NIF="182938271" DataNasc="1995-04-12">
+	<Utilizador Nome="André André" NIF="182938271" DataNasc="1995-04-12">
 		<Funcionário Local="Caixa"/>
+	</Utilizador>
+	
+	<Utilizador Nome="Joana Joana" NIF="125487952" DataNasc="1993-09-29">
+		<Funcionário Local="Loja"/>
 	</Utilizador>
 	
 </ListaUtilizadores>
