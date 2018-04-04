@@ -71,7 +71,7 @@ public class Loja {
 				if(login(nif).equals("Cliente")){
 					menuCliente(sc, nif);
 				}else if(login(nif).equals("Loja")) menuFuncionarioLoja(sc, nif);
-				else if(login(nif).equals("Caixa")) menuFuncionarioLoja(sc, nif);
+				else if(login(nif).equals("Caixa")) menuFuncionarioCaixa(sc, nif);
 				
 				break;
 				
@@ -257,7 +257,7 @@ public class Loja {
 		for(int i = 0; i < nodesUtilizador.getLength(); i++) {
 			if(nodesUtilizador.item(i).getAttributes().getNamedItem("NIF").getTextContent().equals(nif)) {
 				if( nodesUtilizador.item(i).getChildNodes().item(1).getNodeName().equals("Funcionário")) {
-					return nodesUtilizador.item(i).getAttributes().getNamedItem("local").getTextContent();
+					return nodesUtilizador.item(i).getChildNodes().item(1).getAttributes().getNamedItem("Local").getTextContent();
 				}
 				else return nodesUtilizador.item(i).getChildNodes().item(1).getNodeName();
 			}
