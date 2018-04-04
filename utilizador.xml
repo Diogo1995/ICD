@@ -10,4 +10,8 @@
 		<Funcionário Local="Caixa"/>
 	</Utilizador>
 	
+	<Utilizador Nome="" NIF="125487698" DataNasc="1997-01-01">
+		<Funcionário Local="Loja"/>
+	</Utilizador>
+	
 </ListaUtilizadores>
