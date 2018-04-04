@@ -5,9 +5,17 @@
 		<cliente idutilizador="ID_1">
 			<nome>Antonio Pedrosa</nome>
 			<dataNascimento >1995/08/23</dataNascimento>
-			<numFiscal >456987123</numFiscal>
+			<numFiscal>456987123</numFiscal>
+			<password>1234</password>
 		</cliente>
 	</clientes>
+	
+	<Utilizador>
+		<Cliente Nome="" NIF="" DataNasc=""/>
+		<Funcionário Nome="" NIF="" DataNasc=""/>
+	</Utilizador>
+	
+	
 	
 	<adulto>
 		<homem>
