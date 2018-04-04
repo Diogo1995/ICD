@@ -270,6 +270,16 @@ public class Loja {
 	}
 	
 	
+	
+	
+	
+	//TODO Atualizar Utilizador (DOM) pois quando se faz registar, nao da para fazer login imediatamente com esse nif.
+	
+	
+	
+	
+	
+	
 	/**
 	 * 
 	 * @param sc
@@ -307,11 +317,11 @@ public class Loja {
 		Utilizadores.getDocumentElement().appendChild(utilizador);
 
 		try {
-			XMLDoc.writeDocument(Utilizadores, "utilizador2.xml");
 			if(!XMLDoc.validDoc(Utilizadores, "utilizador.xsd", XMLConstants.W3C_XML_SCHEMA_NS_URI)) {
 				Utilizadores.getDocumentElement().removeChild(utilizador);
 				return false;
 			}
+			XMLDoc.writeDocument(Utilizadores, "utilizador.xml");
 			return true;
 		} catch (SAXException e) {
 			//e.printStackTrace();

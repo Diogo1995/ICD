@@ -1,21 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ListaUtilizadores>
 
-	<Utilizador Nome="Pedro Pedro" NIF="293827172" DataNasc="1994-10-21">
-		<Cliente></Cliente>
+	<Utilizador DataNasc="1994-10-21" NIF="293827172" Nome="Pedro Pedro">
+		<Cliente/>
 	</Utilizador>
 	
-	<Utilizador Nome="André André" NIF="182938271" DataNasc="1995-04-12">
+	<Utilizador DataNasc="1995-04-12" NIF="182938271" Nome="André André">
 		<Funcionário Local="Caixa"/>
 	</Utilizador>
 	
-<<<<<<< HEAD
-	<Utilizador Nome="Joana Joana" NIF="125487952" DataNasc="1993-09-29">
-=======
-	<Utilizador Nome="" NIF="125487698" DataNasc="1997-01-01">
->>>>>>> 5074be39a0ad27db02077a1210d4687bff4aeda7
+	<Utilizador DataNasc="1997-01-01" NIF="125487698" Nome="Joana Joana">
 		<Funcionário Local="Loja"/>
 	</Utilizador>
 	
+<Utilizador DataNasc="1994-07-13" NIF="123546849" Nome="Diogo Diogo">
+<Cliente/>
+</Utilizador>
+<Utilizador DataNasc="1998-10-26" NIF="124587963" Nome="Vasco Vasco">
+<Cliente/>
+</Utilizador>
+<Utilizador DataNasc="1994-08-04" NIF="123654789" Nome="Rogério Rogério">
+<Cliente/>
+</Utilizador>
 </ListaUtilizadores>
