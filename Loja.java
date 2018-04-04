@@ -7,6 +7,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
@@ -14,18 +16,26 @@ import org.xml.sax.SAXException;
 public class Loja {
 	
 	public final static String contexto = "";
-	static Document D = null; // representa a arvore DOM com o poema
+	private Document Utilizadores;
+	private Document Peças;
+	
+	public Loja() {
+		this.Utilizadores = ValidarXML("utilizador.xml"); //TODO alterar nomes de xmls?
+		this.Peças = ValidarXML("peça.xml");		
+	}
 
-	public Loja(String XMLdoc) {
+	private Document ValidarXML(String XMLdoc) {
 		XMLdoc = contexto + XMLdoc;
 		DocumentBuilder docBuilder;
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
 				.newInstance();
 		docBuilderFactory.setIgnoringElementContentWhitespace(true);
+		Document D = null; // representa a arvore DOM com o xml
 		try {
 			docBuilder = docBuilderFactory.newDocumentBuilder();
 			File sourceFile = new File(XMLdoc);
 			D = docBuilder.parse(sourceFile);
+			return D;
 		} catch (ParserConfigurationException e) {
 			System.out.println("Wrong parser configuration: " + e.getMessage());
 		} catch (SAXException e) {
@@ -33,11 +43,11 @@ public class Loja {
 		} catch (IOException e) {
 			System.out.println("Could not read source file: " + e.getMessage());
 		}
+		return D;
 	}
 	
 	
 	public void menuAcesso() {
-		
 		char op;
 		Scanner sc = new Scanner(System.in);
 		do {
@@ -47,7 +57,7 @@ public class Loja {
 			System.out
 					.println("1 - Login.");
 			System.out
-					.println("2 - Registrar");
+					.println("2 - Registar");
 			System.out.println("0 - Terminar!");
 			String str = sc.nextLine();
 			if (str != null && str.length() > 0)
@@ -60,8 +70,13 @@ public class Loja {
 				System.out.println(nif);
 				if(login(nif).equals("Cliente")){
 					menuCliente(sc, nif);
-				}else if(login(nif).equals("Funcionario")) menuFuncionario(sc, nif);
+				}else if(login(nif).equals("Funcionário")) menuFuncionario(sc, nif);
 				break;
+				
+			case '2':
+				//TODO
+				break;
+				
 			case '0':
 				break;
 			default:
@@ -89,7 +104,7 @@ public class Loja {
 			System.out
 					.println("3 - Equipamentos Criança.");
 			System.out.println("4 - Acessórios");
-			System.out.println("5 - Ver Lista De Compras.");
+			System.out.println("5 - Ver Carrinho De Compras.");
 			System.out.println("6 - Terminar Sessão.");
 			System.out.println("0 - Terminar!");
 			String str = sc.nextLine();
@@ -101,6 +116,11 @@ public class Loja {
 			case '1':
 				//apresenta();
 				break;
+				
+			case '6':
+				menuAcesso();
+				break;
+				
 			case '0':
 				break;
 			default:
@@ -135,9 +155,15 @@ public class Loja {
 			else
 				op = ' ';
 			switch (op) {
+			
 			case '1':
 				//apresenta();
 				break;
+				
+			case '6':
+				menuAcesso();
+				break;
+				
 			case '0':
 				break;
 			default:
@@ -189,18 +215,45 @@ public class Loja {
 	 */
 	private String login(String nif) {
 		//TODO
+		NodeList nodesUtilizador = Utilizadores.getDocumentElement().getElementsByTagName("Utilizador");
+		for(int i = 0; i < nodesUtilizador.getLength(); i++) {
+			if(nodesUtilizador.item(i).getAttributes().getNamedItem("NIF").getTextContent().equals(nif)) {
+				return nodesUtilizador.item(i).getChildNodes().item(1).getNodeName();
+			}
+		}
 		return null;
 	}
 	
+	
+	/**
+	 * 
+	 * @param sc
+	 * @return
+	 */
+	private boolean menuRegistar(Scanner sc) {
+		//TODO
+		return false;
+	}
+	
+	
+	/**
+	 * 
+	 * @param nif
+	 * @return
+	 */
+	private boolean registar(String nif) {
+		//TODO
+		return false;
+	}
 	
 	
 	/**Ele comeca com a o login como cliente**/
 	
 	public static void main(String[] args) {
 	
-		String lojaFileName =  "Equipamentos.xml";
-		Loja pm = new Loja(lojaFileName);
-		if(D != null)pm.menuAcesso();
+		Loja loja = new Loja();
+		if (XMLDoc.validDocXSD("utilizador.xml", "utilizador.xsd") &&
+				XMLDoc.validDocXSD("peça.xml", "peça.xsd"))loja.menuAcesso();
 	
 	}
 	
