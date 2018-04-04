@@ -10,7 +10,7 @@
 	<xs:element name="ListaUtilizadores">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Utilizador">
+				<xs:element name="Utilizador" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>Utilizador da Loja</xs:documentation>
 					</xs:annotation>

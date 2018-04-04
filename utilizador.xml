@@ -3,8 +3,9 @@
 <ListaUtilizadores>
 
 	<Utilizador Nome="" NIF="293827172" DataNasc="1994-10-21">
-		<Cliente/>
+		<Cliente></Cliente>
 	</Utilizador>
+	
 	<Utilizador Nome="" NIF="182938271" DataNasc="1995-04-12">
 		<Funcionário Local="Caixa"/>
 	</Utilizador>
