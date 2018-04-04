@@ -2,11 +2,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -51,7 +53,7 @@ public class Loja {
 		char op;
 		Scanner sc = new Scanner(System.in);
 		do {
-			System.out.println();
+			System.out.println(Utilizadores.getDocumentElement().getElementsByTagName("Utilizador").getLength());
 			System.out.println();
 			System.out.println("*** Login Loja ***");
 			System.out
@@ -76,7 +78,9 @@ public class Loja {
 				break;
 				
 			case '2':
-				//TODO
+				if(!menuRegistar(sc)) System.out.println("Erro ao registar. Voltando ao menu principal.");
+				else System.out.println("Registado com sucesso!");
+				System.out.println();
 				break;
 				
 			case '0':
@@ -272,8 +276,17 @@ public class Loja {
 	 * @return
 	 */
 	private boolean menuRegistar(Scanner sc) {
-		//TODO
-		return false;
+		System.out.println("Insira o seu nome completo.");
+		String nome = sc.nextLine();
+		System.out.println("Insira o seu NIF.");
+		String nif = sc.nextLine();
+		System.out.println("Insira a sua data de nascimento (aaaa-mm-dd) ");
+		String dataNasc = sc.nextLine();
+		if (dataNasc.charAt(0) == '(') {
+			dataNasc = dataNasc.substring(1, dataNasc.length()-1);
+			System.out.println(dataNasc);
+		}
+		return registar(nome, nif, dataNasc);
 	}
 	
 	
@@ -282,9 +295,29 @@ public class Loja {
 	 * @param nif
 	 * @return
 	 */
-	private boolean registar(String nif) {
-		//TODO
-		return false;
+	private boolean registar(String nome, String nif, String data) {		
+		Node utilizador = Utilizadores.createElement("Utilizador");
+		((Element)utilizador).setAttribute("Nome", nome);
+		((Element)utilizador).setAttribute("NIF", nif);
+		((Element)utilizador).setAttribute("DataNasc", data);
+		
+		Node cliente = Utilizadores.createElement("Cliente");
+		
+		utilizador.appendChild(cliente);
+		Utilizadores.getDocumentElement().appendChild(utilizador);
+
+		try {
+			XMLDoc.writeDocument(Utilizadores, "utilizador2.xml");
+			if(!XMLDoc.validDoc(Utilizadores, "utilizador.xsd", XMLConstants.W3C_XML_SCHEMA_NS_URI)) {
+				Utilizadores.getDocumentElement().removeChild(utilizador);
+				return false;
+			}
+			return true;
+		} catch (SAXException e) {
+			//e.printStackTrace();
+			Utilizadores.getDocumentElement().removeChild(utilizador);
+			return false;
+		}
 	}
 	
 	
