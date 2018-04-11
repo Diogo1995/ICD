@@ -122,17 +122,17 @@ public class Loja {
 			switch (op) {
 			case '1':
 				NodeList pecasH = getNodesByTag(catalogo, "Secção", "Homem");
-				menuEquipamentos(sc, nif, pecasH);
+				menuEquipamentos(sc, nif, pecasH, "Homem");
 				break;
 				
 			case '2':
 				NodeList pecasM = getNodesByTag(catalogo, "Secção", "Mulher");
-				menuEquipamentos(sc, nif, pecasM);
+				menuEquipamentos(sc, nif, pecasM, "Mulher");
 				break;
 				
 			case '3':
 				NodeList pecasC = getNodesByTag(catalogo, "Secção", "Criança");
-				menuEquipamentos(sc, nif, pecasC);
+				menuEquipamentos(sc, nif, pecasC, "Criança");
 				break;
 				
 			case '4':
@@ -379,7 +379,7 @@ public class Loja {
 	 * @param nif
 	 * @param nl
 	 */
-	public void menuEquipamentos(Scanner sc, String nif, NodeList pecas) {
+	public void menuEquipamentos(Scanner sc, String nif, NodeList pecas, String seccao) {
 		char op;
 
 		do {
@@ -398,11 +398,11 @@ public class Loja {
 			switch (op) {
 			
 			case '1':
-				menuPecas(sc, nif, pecas, "Vestuário");
+				menuPecas(sc, nif, pecas, "Vestuário", seccao);
 				break;
 				
 			case '2':
-				menuPecas(sc, nif, pecas, "Calçado");
+				menuPecas(sc, nif, pecas, "Calçado", seccao);
 				break;
 				
 			case '3':
@@ -420,19 +420,51 @@ public class Loja {
 	}
 	
 	
-	public void menuPecas(Scanner sc, String nif, NodeList pecas, String tipo) {
-		System.out.println();
-		System.out.println();
-		System.out.println("*** " + tipo + " ***");
-		System.out.println("");
+	public void menuPecas(Scanner sc, String nif, NodeList pecas, String tipo, String seccao) {
+		boolean escolhaExiste = false; //TODO alterar forma de fazer isto ou alterar nome da variavel
 		
-		int index = 0;
-		for(int i = 0; i < pecas.getLength(); i++) {
-			if(pecas.item(i).hasAttributes() && pecas.item(i).getChildNodes().item(5).getNodeName().equals(tipo))
-			System.out.println(++index + " - " + pecas.item(i).getAttributes().getNamedItem("Designação").getTextContent());
+		while(!escolhaExiste) {
+			System.out.println();
+			System.out.println();
+			System.out.println("*** " + tipo + " ***");
+			System.out.println("");
+			
+			int index = 0;
+			for(int i = 0; i < pecas.getLength(); i++) {
+				if(pecas.item(i).hasAttributes() && pecas.item(i).getChildNodes().item(5).getNodeName().equals(tipo))
+				System.out.println(++index + " - " + pecas.item(i).getAttributes().getNamedItem("Designação").getTextContent());
+			}
+			
+			if (index == 0) {
+				System.out.println("Não existem peças de " + tipo + " disponíveis na secção de " + seccao + "! Voltando ao menú anterior...");
+				return;
+			}
+			
+			
+			//Handle do input	
+			System.out.println();
+			System.out.println("Escreva o número da peça para ver a sua descrição. Ou escreva \"0\" para voltar ao menú anterior.");
+			String input = sc.nextLine();
+			//TODO Verificar se str é só composta por numeros!!!
+
+			if (input.equals("0")) {
+				return;
+			}
+			
+			int indexAux = 0;
+			for(int i = 0; i < pecas.getLength(); i++) {
+				if(pecas.item(i).hasAttributes() && pecas.item(i).getChildNodes().item(5).getNodeName().equals(tipo)) {
+					indexAux++;
+					if (input.equals(Integer.toString(indexAux))) {
+						escolhaExiste = true;
+						
+						//TODO mostrar descrição do item e fazer um novo menu para comprar um tamanho ou voltar
+					}
+				}
+			}
+			
+			
 		}
-		
-		//TODO utilizar input para passar ao proximo menu
 	}
 	
 	
