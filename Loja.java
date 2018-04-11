@@ -99,7 +99,7 @@ public class Loja {
 	
 	public void menuCliente(Scanner sc, String nif) {
 		char op;
-		Node catalogo = Pecas.getDocumentElement();
+		Node catalogo = Pecas.getDocumentElement().cloneNode(true);
 		do {
 			System.out.println();
 			System.out.println();
@@ -121,22 +121,22 @@ public class Loja {
 				op = ' ';
 			switch (op) {
 			case '1':
-				NodeList pecasH = getNodesByTag(catalogo.getChildNodes(), "Secção", "Homem");
+				NodeList pecasH = getNodesByTag(catalogo, "Secção", "Homem");
 				menuEquipamentos(sc, nif, pecasH);
 				break;
 				
 			case '2':
-				NodeList pecasM = getNodesByTag(catalogo.getChildNodes(), "Secção", "Mulher");
+				NodeList pecasM = getNodesByTag(catalogo, "Secção", "Mulher");
 				menuEquipamentos(sc, nif, pecasM);
 				break;
 				
 			case '3':
-				NodeList pecasC = getNodesByTag(catalogo.getChildNodes(), "Secção", "Criança");
+				NodeList pecasC = getNodesByTag(catalogo, "Secção", "Criança");
 				menuEquipamentos(sc, nif, pecasC);
 				break;
 				
 			case '4':
-				NodeList pecasA = getNodesByTag(catalogo.getChildNodes(), "Secção", "Acessorio");
+				NodeList pecasA = getNodesByTag(catalogo, "Secção", "Acessorio");
 				//menuPecas();
 				//TODO
 				break;
@@ -358,14 +358,16 @@ public class Loja {
 	 * @param tag
 	 * @return
 	 */
-	private NodeList getNodesByTag(NodeList nl, String tag, String tagValor) {
-		Node root = Pecas.getDocumentElement();
-		for(int i = 1; i < nl.getLength()-1; i++) {
-			System.out.println(i);
-			if(!nl.item(i).getAttributes().getNamedItem(tag).getTextContent().equals(tagValor)) {
+	private NodeList getNodesByTag(Node root, String tag, String tagValor) {
+		NodeList nl = root.getChildNodes();
+		System.out.println(root.getChildNodes().getLength());
+		for(int i = 0; i < nl.getLength(); i++) {
+			if(nl.item(i).getNodeType() == Node.ELEMENT_NODE && !nl.item(i).getAttributes().getNamedItem(tag).getTextContent().equals(tagValor)) {
 				root.removeChild(nl.item(i));
 			}
 		}
+		System.out.println(root.getChildNodes().getLength());
+
 		return root.getChildNodes();
 	}
 
@@ -424,14 +426,10 @@ public class Loja {
 		System.out.println("*** " + tipo + " ***");
 		System.out.println("");
 		
-		
 		int index = 0;
-		/*System.out.println(pecas.item(index).getChildNodes().getLength());
-		System.out.println(pecas.item(index).getChildNodes().item(5));*/
-
 		for(int i = 0; i < pecas.getLength(); i++) {
-			if(pecas.item(2).getChildNodes().item(5).getNodeName().equals(tipo))
-			System.out.println(++index + " - " + pecas.item(2).getAttributes().getNamedItem("Designação").getTextContent());
+			if(pecas.item(i).hasAttributes() && pecas.item(i).getChildNodes().item(5).getNodeName().equals(tipo))
+			System.out.println(++index + " - " + pecas.item(i).getAttributes().getNamedItem("Designação").getTextContent());
 		}
 		
 		//TODO utilizar input para passar ao proximo menu
