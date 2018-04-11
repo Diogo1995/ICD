@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!-- Porfírio Filipe -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:element name="Catálogo">
 		<xs:complexType>
@@ -84,12 +83,12 @@
 						</xs:attribute>
 						<xs:attribute name="Secção" use="required">
 							<xs:annotation>
-								<xs:documentation>Secção da Loja. Homem. Senhora, Criança</xs:documentation>
+								<xs:documentation>Secção da Loja. Homem. Mulher, Criança</xs:documentation>
 							</xs:annotation>
 							<xs:simpleType>
 								<xs:restriction base="xs:string">
 									<xs:enumeration value="Criança"/>
-									<xs:enumeration value="Senhora"/>
+									<xs:enumeration value="Mulher"/>
 									<xs:enumeration value="Homem"/>
 								</xs:restriction>
 							</xs:simpleType>

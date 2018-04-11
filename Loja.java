@@ -19,11 +19,11 @@ public class Loja {
 	
 	public final static String contexto = "";
 	private Document Utilizadores;
-	private Document Peças;
+	private Document Pecas;
 	
 	public Loja() {
 		this.Utilizadores = ValidarXML("utilizador.xml"); //TODO alterar nomes de xmls?
-		this.Peças = ValidarXML("peça.xml");		
+		this.Pecas = ValidarXML("peça.xml");		
 	}
 
 	private Document ValidarXML(String XMLdoc) {
@@ -99,6 +99,7 @@ public class Loja {
 	
 	public void menuCliente(Scanner sc, String nif) {
 		char op;
+		Node catalogo = Pecas.getDocumentElement();
 		do {
 			System.out.println();
 			System.out.println();
@@ -120,9 +121,31 @@ public class Loja {
 				op = ' ';
 			switch (op) {
 			case '1':
-				//apresenta();
+				NodeList pecasH = getNodesByTag(catalogo.getChildNodes(), "Secção", "Homem");
+				menuEquipamentos(sc, nif, pecasH);
 				break;
 				
+			case '2':
+				NodeList pecasM = getNodesByTag(catalogo.getChildNodes(), "Secção", "Mulher");
+				menuEquipamentos(sc, nif, pecasM);
+				break;
+				
+			case '3':
+				NodeList pecasC = getNodesByTag(catalogo.getChildNodes(), "Secção", "Criança");
+				menuEquipamentos(sc, nif, pecasC);
+				break;
+				
+			case '4':
+				NodeList pecasA = getNodesByTag(catalogo.getChildNodes(), "Secção", "Acessorio");
+				//menuPecas();
+				//TODO
+				break;
+				
+			case '5':
+				//TODO
+				break;
+				
+			
 			case '6':
 				menuAcesso();
 				break;
@@ -138,6 +161,7 @@ public class Loja {
 		System.exit(0);
 	}
 	
+
 	
 	public void menuFuncionarioCaixa(Scanner sc, String nif) {
 		char op;
@@ -158,6 +182,7 @@ public class Loja {
 			
 			case '1':
 				//apresenta();
+				//TODO
 				break;
 				
 			case '2':
@@ -250,6 +275,7 @@ public class Loja {
 		return false;
 	}
 	
+	
 	/**TODO
 	 * 
 	 * @param nif
@@ -270,16 +296,6 @@ public class Loja {
 	}
 	
 	
-	
-	
-	
-	//TODO Atualizar Utilizador (DOM) pois quando se faz registar, nao da para fazer login imediatamente com esse nif.
-	
-	
-	
-	
-	
-	
 	/**
 	 * 
 	 * @param sc
@@ -290,11 +306,14 @@ public class Loja {
 		String nome = sc.nextLine();
 		System.out.println("Insira o seu NIF.");
 		String nif = sc.nextLine();
+		if(!validarNif(nif)) {
+			System.out.println("Nif inserido inválido ou já existente na base de dados.");
+			return false;
+		}
 		System.out.println("Insira a sua data de nascimento (aaaa-mm-dd) ");
 		String dataNasc = sc.nextLine();
 		if (dataNasc.charAt(0) == '(') {
 			dataNasc = dataNasc.substring(1, dataNasc.length()-1);
-			System.out.println(dataNasc);
 		}
 		return registar(nome, nif, dataNasc);
 	}
@@ -322,12 +341,100 @@ public class Loja {
 				return false;
 			}
 			XMLDoc.writeDocument(Utilizadores, "utilizador.xml");
+			this.Utilizadores = ValidarXML("utilizador.xml");
 			return true;
 		} catch (SAXException e) {
 			//e.printStackTrace();
 			Utilizadores.getDocumentElement().removeChild(utilizador);
 			return false;
 		}
+	}
+	
+	/**
+	 * Retorna Nos filhos de uma nodeList a partir de uma Tag (String) filha da NodeList anterior
+	 * exemplo (nl = Catálogo, tag = "Secção", tagValor = "Homem")
+	 * 
+	 * @param nl
+	 * @param tag
+	 * @return
+	 */
+	private NodeList getNodesByTag(NodeList nl, String tag, String tagValor) {
+		Node root = Pecas.getDocumentElement();
+		for(int i = 1; i < nl.getLength()-1; i++) {
+			System.out.println(i);
+			if(!nl.item(i).getAttributes().getNamedItem(tag).getTextContent().equals(tagValor)) {
+				root.removeChild(nl.item(i));
+			}
+		}
+		return root.getChildNodes();
+	}
+
+	
+	/**
+	 * Menu Equipamentos (Vestuario/Calcado)
+	 * 
+	 * @param sc
+	 * @param nif
+	 * @param nl
+	 */
+	public void menuEquipamentos(Scanner sc, String nif, NodeList pecas) {
+		char op;
+
+		do {
+			System.out.println();
+			System.out.println();
+			System.out.println("*** Vestuário/Calçado ***");
+			System.out.println("1 - Vestuário.");
+			System.out.println("2 - Calçado.");
+			System.out.println("3 - Voltar.");
+			System.out.println("0 - Terminar!");
+			String str = sc.nextLine();
+			if (str != null && str.length() > 0)
+				op = str.charAt(0);
+			else
+				op = ' ';
+			switch (op) {
+			
+			case '1':
+				menuPecas(sc, nif, pecas, "Vestuário");
+				break;
+				
+			case '2':
+				menuPecas(sc, nif, pecas, "Calçado");
+				break;
+				
+			case '3':
+				menuCliente(sc, nif);
+				break;
+				
+			case '0':
+				break;
+			default:
+				System.out.println("Opção inválida, esolha uma opção do menu.");
+			}
+		} while (op != '0');
+		sc.close();
+		System.exit(0);
+	}
+	
+	
+	public void menuPecas(Scanner sc, String nif, NodeList pecas, String tipo) {
+		System.out.println();
+		System.out.println();
+		System.out.println("*** " + tipo + " ***");
+		System.out.println("");
+		
+		
+		int index = 0;
+		/*System.out.println(pecas.item(index).getChildNodes().getLength());
+		System.out.println(pecas.item(index).getChildNodes().item(5));*/
+
+		for(int i = 0; i < pecas.getLength(); i++) {
+			if(pecas.item(2).getChildNodes().item(5).getNodeName().equals(tipo))
+			System.out.println(++index + " - " + pecas.item(2).getAttributes().getNamedItem("Designação").getTextContent());
+		}
+		
+		//TODO utilizar input para passar ao proximo menu
 	}
 	
 	
@@ -340,16 +447,4 @@ public class Loja {
 				XMLDoc.validDocXSD("peça.xml", "peça.xsd"))loja.menuAcesso();
 	
 	}
-	
-	/** Falta fazer a parte do sign in e do registar as pessoas
-	 * 
-	 */
-	
-	
-	
-	
-	
-	
-	
-
 }
