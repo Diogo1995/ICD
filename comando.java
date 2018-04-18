@@ -76,7 +76,7 @@ public class comando {
 		}
 		Element login = (Element)cmd.getElementsByTagName("login").item(0);
 		login.appendChild(reply);
-		
+		XMLDoc.writeDocument(cmd, "replyyyyyyyyyy.xml");
 		return cmd;
 	}
 	/*
