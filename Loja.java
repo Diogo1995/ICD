@@ -370,6 +370,30 @@ public class Loja {
 
 		return root.getChildNodes();
 	}
+	
+	
+	private String apenasNumeros(Scanner sc, int numPecas) {//TODO alterar nome
+		String input = sc.nextLine();
+		boolean nums = false;
+		
+		while (!nums) {
+			for(int i = 0; i < input.length(); i++) {
+				if (!Character.isDigit(input.charAt(i))) {
+					System.out.println("\nIntroduza apenas números!\n");
+					nums = false;
+					break;
+				}else nums = true;
+			}if (!nums) continue;
+			
+			int valorIn = Integer.parseInt(input);
+			if (valorIn < 0 || valorIn > numPecas) {
+				nums = false;
+				System.out.println("\nIntroduza um valor entre 0 e " + numPecas + "\n");
+				input = sc.nextLine();
+			}
+		}
+		return input;
+	}
 
 	
 	/**
@@ -429,13 +453,13 @@ public class Loja {
 			System.out.println("*** " + tipo + " ***");
 			System.out.println("");
 			
-			int index = 0;
+			int numPecas = 0;
 			for(int i = 0; i < pecas.getLength(); i++) {
 				if(pecas.item(i).hasAttributes() && pecas.item(i).getChildNodes().item(5).getNodeName().equals(tipo))
-				System.out.println(++index + " - " + pecas.item(i).getAttributes().getNamedItem("Designação").getTextContent());
+				System.out.println(++numPecas + " - " + pecas.item(i).getAttributes().getNamedItem("Designação").getTextContent());
 			}
 			
-			if (index == 0) {
+			if (numPecas == 0) {
 				System.out.println("Não existem peças de " + tipo + " disponíveis na secção de " + seccao + "! Voltando ao menú anterior...");
 				return;
 			}
@@ -444,8 +468,8 @@ public class Loja {
 			//Handle do input	
 			System.out.println();
 			System.out.println("Escreva o número da peça para ver a sua descrição. Ou escreva \"0\" para voltar ao menú anterior.");
-			String input = sc.nextLine();
-			//TODO Verificar se str é só composta por numeros!!!
+			String input = apenasNumeros(sc, numPecas);
+		
 
 			if (input.equals("0")) {
 				return;
