@@ -1,5 +1,14 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import javax.xml.XMLConstants;
@@ -371,7 +380,13 @@ public class Loja {
 		return root.getChildNodes();
 	}
 	
-	
+	/**Recebe o input do utilizador e verifica se é um número e se este é uma das escolhas
+	 * possiveis do menu
+	 * 
+	 * @param sc
+	 * @param numPecas
+	 * @return
+	 */
 	private String apenasNumeros(Scanner sc, int numPecas) {//TODO alterar nome
 		String input = sc.nextLine();
 		boolean nums = false;
@@ -491,12 +506,74 @@ public class Loja {
 		}
 	}
 	
+	private static void clienteTCP() {
+		String host = "10.10.7.219";  // Máquina onde reside a aplicação servidora
+        int    port = 5025;      // Porto da aplicação servidora
+
+        /*
+        if (args.length > 0) {
+            host = args[0];
+        }
+        
+        if (args.length > 1) {
+            try {
+                port = Integer.parseInt(args[1]);
+                if (port < 1 || port > 65535) port = DEFAULT_PORT;
+            }
+            catch (NumberFormatException e) {
+                System.err.println("Erro no porto indicado");
+            }
+        }
+        */
+        
+        System.out.println("-> " + host + ":" + port );
+        
+        
+        Socket socket     = null;
+        BufferedReader is = null;
+        PrintWriter    os = null;
+        
+        try {
+            socket = new Socket(host, port);
+            // Mostrar os parametros da ligação
+            System.out.println("Ligação: " + socket);
+
+            // Stream para escrita no socket
+            os = new PrintWriter(socket.getOutputStream(), true); 
+
+            // Stream para leitura do socket
+            is = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Escreve no socket
+            os.println("Olá mundo!!!");
+
+            // Mostrar o que se recebe do socket
+            System.out.println("Recebi -> " + is.readLine()); 
+            
+            
+        } 
+        catch (IOException e) {
+            System.err.println("Erro na ligação " + e.getMessage());   
+        }
+        finally {
+            // No fim de tudo, fechar os streams e o socket
+            try {
+                if (os != null) os.close();
+                if (is != null) is.close();
+                if (socket != null ) socket.close();
+            }
+            catch (IOException e) { 
+                // if an I/O error occurs when closing this socket
+            }
+        } // end finally
+	}
 	
 	/**Ele comeca com a o login como cliente**/
 	
 	public static void main(String[] args) {
 	
 		Loja loja = new Loja();
+		clienteTCP();
 		if (XMLDoc.validDocXSD("utilizador.xml", "utilizador.xsd") &&
 				XMLDoc.validDocXSD("peça.xml", "peça.xsd"))loja.menuAcesso();
 	
