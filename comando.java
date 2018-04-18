@@ -74,6 +74,8 @@ public class comando {
 			Element clone = (Element) cmd.importNode(util.item(i), true);
 			reply.appendChild(clone);
 		}
+		Element login = (Element)cmd.getElementsByTagName("login").item(0);
+		login.appendChild(reply);
 		
 		return cmd;
 	}

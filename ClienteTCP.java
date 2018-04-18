@@ -108,10 +108,10 @@ public class ClienteTCP {
 		XMLDoc.writeDocument(reply, "reply.xml");
 
 		System.out.println("\nLista de utilizadores:");
-		NodeList titulos = reply.getElementsByTagName("Utilizador");
-		for (int i = 0; i < titulos.getLength(); i++) {
-			Node item = titulos.item(i);
-			System.out.println(item.getTextContent());
+		NodeList utilizadores = reply.getElementsByTagName("Utilizador");
+		for (int i = 0; i < utilizadores.getLength(); i++) {
+			Node item = utilizadores.item(i).getFirstChild();
+			System.out.println(item.getNodeType());
 		}
 	}
 	
