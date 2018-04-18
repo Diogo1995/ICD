@@ -110,8 +110,8 @@ public class ClienteTCP {
 		System.out.println("\nLista de utilizadores:");
 		NodeList utilizadores = reply.getElementsByTagName("Utilizador");
 		for (int i = 0; i < utilizadores.getLength(); i++) {
-			Node item = utilizadores.item(i).getFirstChild();
-			System.out.println(item.getNodeType());
+			Node item = utilizadores.item(i);
+			System.out.println(item.getChildNodes().item(0).getNodeName());
 		}
 	}
 	
