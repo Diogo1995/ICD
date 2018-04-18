@@ -20,6 +20,7 @@ import java.io.*;
 import org.w3c.dom.ls.*; 
 import org.xml.sax.SAXException;
 
+
 /* XML Transformation */
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -39,7 +40,7 @@ import javax.xml.transform.OutputKeys;
  */
 
 final public class XMLDoc {
-
+	
 	/**
 	 * Devolve lista de nós gerada pela expressão xPath indicada
 	 * 
@@ -50,8 +51,8 @@ final public class XMLDoc {
 	 * @return 
 	 * 			lista de nós
 	 */
+	
 	public static final NodeList getXPath(final String expression, final Document doc) {
-
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		NodeList nodes;
 		try {
@@ -277,7 +278,7 @@ final public class XMLDoc {
 	 */
 	private static final boolean validDoc(String xmlFileName, String vFileName,
 			String type) {
-		System.out.println("Processo xml ("+xmlFileName+") e xsd ("+vFileName+")");
+		//System.out.println("Processo xml ("+xmlFileName+") e xsd ("+vFileName+")");
 		Source xmlFile = new StreamSource(new File(xmlFileName));
 		SchemaFactory schemaFactory = SchemaFactory.newInstance(type);
 		Schema schema = null;
@@ -285,7 +286,7 @@ final public class XMLDoc {
 			schema = schemaFactory.newSchema(new File(vFileName));
 		} catch (SAXException e1) {
 			e1.printStackTrace();
-			System.out.println("Erro no acesso ao ficheiro "+vFileName);
+			System.err.println("Erro no acesso ao ficheiro"+vFileName);
 			return false;
 		}
 		Validator validator = schema.newValidator();
@@ -296,7 +297,7 @@ final public class XMLDoc {
 				e.printStackTrace();
 				return false;
 			}
-			System.out.println(xmlFile.getSystemId() + " is valid");
+			//System.out.println(xmlFile.getSystemId() + " is valid");
 			return true;
 		} catch (SAXException e) {
 			System.err.println(xmlFile.getSystemId() + " is NOT valid");
@@ -336,11 +337,22 @@ final public class XMLDoc {
 		}
 	}
 	
+	public static final String ListarFicheiros(String pasta) {
+		String result = "<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>\n";
+		result = result + "<ficheiros>\n";
+		File folder = new File(pasta);
+		File[] listOfFiles = folder.listFiles();
+		for (int i = 0; i < listOfFiles.length; i++)
+			if (listOfFiles[i].isFile())
+				result = result + "<ficheiro>" + listOfFiles[i].getName() + "</ficheiro>\n";
+		return result + "</ficheiros>\n";
+	}
+	
 	public static void main(String[] args) {
+		
+		System.out.println(ListarFicheiros("WebContent\\xml"));
+		
 
-		
-		validDocXSD("utilizador.xml", "utilizador.xsd");
-		
 		/* String contexto = "WebContent\\xml";
 
 		String xmlFileName = contexto + "exemplo.xml";

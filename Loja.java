@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,7 +28,7 @@ import org.xml.sax.SAXException;
 public class Loja {
 	
 	public final static String contexto = "";
-	private Document Utilizadores;
+	private static Document Utilizadores;
 	private Document Pecas;
 	
 	public Loja() {
@@ -284,7 +285,6 @@ public class Loja {
 		return false;
 	}
 	
-	
 	/**TODO
 	 * 
 	 * @param nif
@@ -302,6 +302,10 @@ public class Loja {
 			}
 		}
 		return null;
+	}
+	
+	public static Document getUtilizadores() {
+		return Utilizadores;
 	}
 	
 	
@@ -573,7 +577,7 @@ public class Loja {
 	public static void main(String[] args) {
 	
 		Loja loja = new Loja();
-		clienteTCP();
+		//clienteTCP();
 		if (XMLDoc.validDocXSD("utilizador.xml", "utilizador.xsd") &&
 				XMLDoc.validDocXSD("peça.xml", "peça.xsd"))loja.menuAcesso();
 	
