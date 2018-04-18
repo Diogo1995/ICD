@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<protocol>
+<login>
+<request>
+<nif>123456789</nif>
+</request>
+<reply>
+<Utilizador DataNasc="1994-07-13" NIF="123456789" Nome="Diogo Diogo">
+<Cliente/>
+</Utilizador>
+</reply>
+</login>
+</protocol>

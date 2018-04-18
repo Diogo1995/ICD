@@ -106,7 +106,7 @@ public class ClienteTCP {
 		// obtém resposta
 		Document reply = XMLReadWrite.documentFromSocket(sock);
 		XMLDoc.writeDocument(reply, "reply.xml");
-
+		//TODO
 		System.out.println("\nLista de utilizadores:");
 		NodeList utilizadores = reply.getElementsByTagName("Utilizador");
 		for (int i = 0; i < utilizadores.getLength(); i++) {
