@@ -72,10 +72,9 @@ public class comando {
 		
 		for(int i = 0; i < util.getLength(); i++) {
 			if(util.item(i).getAttributes().getNamedItem("NIF").getTextContent().equals(cmd.getElementsByTagName("nif").item(0).getTextContent())) {
-				System.out.println("FREEDOM!");
+				Element clone = (Element) cmd.importNode(util.item(i), true);
+				reply.appendChild(clone);
 			}
-			Element clone = (Element) cmd.importNode(util.item(i), true);
-			reply.appendChild(clone);
 		}
 		Element login = (Element)cmd.getElementsByTagName("login").item(0);
 		login.appendChild(reply);
