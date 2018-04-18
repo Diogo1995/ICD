@@ -42,26 +42,6 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="obter">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="request">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="palavra" type="xs:string" maxOccurs="unbounded"/>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="reply" minOccurs="0">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="poema" type="T_poema" minOccurs="0"/>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>

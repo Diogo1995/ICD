@@ -66,7 +66,7 @@ public class comando {
 	
 	public Document replyLogin() {
 		Document utilizadores = Loja.getUtilizadores();
-		NodeList util = utilizadores.getElementsByTagName("nif");
+		NodeList util = utilizadores.getElementsByTagName("Utilizador");
 		
 		Element reply = cmd.createElement("reply");
 		
