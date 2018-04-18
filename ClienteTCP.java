@@ -100,6 +100,7 @@ public class ClienteTCP {
 		Document request = cmd.requestLogin("123456789");
 		//System.out.println("Passo 1");
 		System.out.println(request.getDocumentElement());
+		XMLDoc.writeDocument(request, "request.xml");
 		// envia pedido
 		XMLReadWrite.documentToSocket(request, sock);
 		// obtém resposta

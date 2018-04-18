@@ -36,7 +36,7 @@ public class Loja {
 		this.Pecas = ValidarXML("peça.xml");		
 	}
 
-	private Document ValidarXML(String XMLdoc) {
+	private static Document ValidarXML(String XMLdoc) {
 		XMLdoc = contexto + XMLdoc;
 		DocumentBuilder docBuilder;
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
@@ -305,7 +305,7 @@ public class Loja {
 	}
 	
 	public static Document getUtilizadores() {
-		return Utilizadores;
+		return ValidarXML("utilizador.xml");
 	}
 	
 	
