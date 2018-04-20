@@ -379,45 +379,18 @@ public class ClienteTCP {
 	}
 	
 	private static NodeList Catalogo(Socket sock, String seccao) {
-		//TODO
 		comando cmd = new comando();
 		Document request = cmd.requestCatalogo(seccao);
-		XMLDoc.writeDocument(request, "request.xml");
+		//XMLDoc.writeDocument(request, "request.xml");
 		//envia pedido
 		XMLReadWrite.documentToSocket(request, sock);
 		//obtém resposta
 		Document reply = XMLReadWrite.documentFromSocket(sock);
-		XMLDoc.writeDocument(reply, "reply.xml");
-		return null;
+		//XMLDoc.writeDocument(reply, "reply.xml");
+		return reply.getElementsByTagName("Peça");
 	}
 	
-	/**
-	 * Envia e recebe a o comando associado ao serviço Obter
-	 * @param sock
-	 */
-	/*
-	private static void Obter(Socket sock, String[] palavras) {
-
-		comando cmd = new comando();
-		Document request = cmd.requestObter(palavras);
-
-		// envia pedido
-		XMLReadWrite.documentToSocket(request, sock);
-		// obtém resposta
-		Document reply = XMLReadWrite.documentFromSocket(sock);
-
-		NodeList L = reply.getElementsByTagName("poema");
-		if (L.getLength() == 0)
-			System.out
-					.println("\nNão existe nenhum poema com todas as palavras indicadas!");
-		else {
-			System.out.println("\nPoema:");
-			Element pm = (Element) reply.getElementsByTagName("poema").item(0);
-			//Loja resposta = new Loja(pm);
-			//resposta.apresenta();
-		}
-	}
-	*/
+	
 	public static void main(String[] args) {
 
 		String host = DEFAULT_HOSTNAME; // Máquina onde reside a aplicação

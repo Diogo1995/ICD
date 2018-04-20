@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import javax.xml.XMLConstants;
 
 import org.w3c.dom.Document;
@@ -69,7 +67,21 @@ public class comando {
 	
 	public Document replyCatalogo() {
 		//TODO
-		return null;
+		Document catalogo = Loja.getPecas();
+		NodeList pecas = catalogo.getElementsByTagName("Peça");
+		
+		Element reply = cmd.createElement("reply");
+		
+		for(int i = 0; i < pecas.getLength(); i++) {
+			if(pecas.item(i).getAttributes().getNamedItem("Secção").getTextContent().equals(cmd.getElementsByTagName("seccao").item(0).getTextContent())) {
+				Element clone = (Element) cmd.importNode(pecas.item(i), true);
+				reply.appendChild(clone);
+			}
+		}
+		Element catal = (Element)cmd.getElementsByTagName("catalogo").item(0);
+		catal.appendChild(reply);
+		
+		return cmd;
 	}
 	
 	public Document requestConsultar() {  // usar no cliente
