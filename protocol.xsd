@@ -19,13 +19,35 @@
 							<xs:element name="reply" minOccurs="0">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="Utilizador" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="Utilizador" minOccurs="0" maxOccurs="unbounded"/>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
+				
+				<xs:element name="catalogo">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="request">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="seccao" type="xs:string" maxOccurs="1"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="reply" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Peça" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
 				<xs:element name="consultar">
 					<xs:complexType>
 						<xs:sequence>

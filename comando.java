@@ -36,6 +36,42 @@ public class comando {
 		return cmd;
 	}
 	
+	public Document replyLogin() {
+		Document utilizadores = Loja.getUtilizadores();
+		NodeList util = utilizadores.getElementsByTagName("Utilizador");
+		
+		Element reply = cmd.createElement("reply");
+		
+		for(int i = 0; i < util.getLength(); i++) {
+			if(util.item(i).getAttributes().getNamedItem("NIF").getTextContent().equals(cmd.getElementsByTagName("nif").item(0).getTextContent())) {
+				Element clone = (Element) cmd.importNode(util.item(i), true);
+				reply.appendChild(clone);
+			}
+		}
+		Element login = (Element)cmd.getElementsByTagName("login").item(0);
+		login.appendChild(reply);
+		return cmd;
+	}
+	
+	public Document requestCatalogo(String seccao) {
+		Element catalogo = cmd.createElement("catalogo");
+		Element request = cmd.createElement("request");
+		catalogo.appendChild(request);
+		Element protocol = (Element) cmd.getElementsByTagName("protocol").item(0);
+		protocol.appendChild(catalogo);
+		
+		Element seccaoElem = cmd.createElement("seccao");
+		seccaoElem.appendChild(cmd.createTextNode(seccao));
+		request.appendChild(seccaoElem);
+
+		return cmd;
+	}
+	
+	public Document replyCatalogo() {
+		//TODO
+		return null;
+	}
+	
 	public Document requestConsultar() {  // usar no cliente
 		// <consultar><request></request></consultar>
 		Element consultar = cmd.createElement("consultar");
@@ -64,22 +100,8 @@ public class comando {
 
 	*/
 	
-	public Document replyLogin() {
-		Document utilizadores = Loja.getUtilizadores();
-		NodeList util = utilizadores.getElementsByTagName("Utilizador");
-		
-		Element reply = cmd.createElement("reply");
-		
-		for(int i = 0; i < util.getLength(); i++) {
-			if(util.item(i).getAttributes().getNamedItem("NIF").getTextContent().equals(cmd.getElementsByTagName("nif").item(0).getTextContent())) {
-				Element clone = (Element) cmd.importNode(util.item(i), true);
-				reply.appendChild(clone);
-			}
-		}
-		Element login = (Element)cmd.getElementsByTagName("login").item(0);
-		login.appendChild(reply);
-		return cmd;
-	}
+
+	
 	/*
 	private Document replyObter() {  // usado no reply
 		// as palavras já estão no comando
@@ -112,10 +134,10 @@ public class comando {
 		show();
 		if(cmd.getElementsByTagName("login").getLength()==1)
 			com = replyLogin();
-		/*
-		if(cmd.getElementsByTagName("obter").getLength()==1)
-			com = replyObter();
-		*/
+		
+		if(cmd.getElementsByTagName("catalogo").getLength()==1)
+			com = replyCatalogo();
+		
 		if(com==null)
 			return cmd;
 		else {

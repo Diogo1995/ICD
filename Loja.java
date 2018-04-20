@@ -170,7 +170,6 @@ public class Loja {
 		System.out.println("Terminou a execução.");
 		System.exit(0);
 	}
-	
 
 	
 	public void menuFuncionarioCaixa(Scanner sc, String nif) {
@@ -306,6 +305,10 @@ public class Loja {
 	
 	public static Document getUtilizadores() {
 		return ValidarXML("utilizador.xml");
+	}
+	
+	public static Document getPecas() {
+		return ValidarXML("peça.xml");
 	}
 	
 	
