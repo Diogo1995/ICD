@@ -69,6 +69,21 @@
 										</xs:sequence>
 									</xs:complexType>
 								</xs:element>
+								<xs:element name="Acessórios">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="Quantidade" maxOccurs="1">
+												<xs:complexType>
+													<xs:attribute name="Quantidade" type="xs:unsignedInt" use="required">
+														<xs:annotation>
+															<xs:documentation>Quantidade em stock</xs:documentation>
+														</xs:annotation>
+													</xs:attribute>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
 							</xs:choice>
 						</xs:sequence>
 						<xs:attribute name="idPeça" use="required">
