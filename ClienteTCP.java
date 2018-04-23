@@ -42,6 +42,7 @@ public class ClienteTCP {
 				op = ' ';
 			switch (op) {
 			case '1':
+				NodeList teste = PecasTotal(sock);
 				String nif = menuLogin(sc);
 				Login(sock, nif);
 				if(utilizador != null) {
@@ -409,13 +410,10 @@ public class ClienteTCP {
 	private static boolean Registar(Socket sock, String nif, String nome, String dataNasc) {
 		comando cmd = new comando();
 		Document request = cmd.requestRegistar(nif, nome, dataNasc);
-		//XMLDoc.writeDocument(request, "requestRegistar.xml");
 		
 		XMLReadWrite.documentToSocket(request, sock);
 		
 		Document reply = XMLReadWrite.documentFromSocket(sock);
-		
-		//XMLDoc.writeDocument(reply, "replyRegistar.xml");
 		
 		if(reply.getElementsByTagName("Utilizador").item(0) != null) {
 			utilizador = reply.getElementsByTagName("Utilizador").item(0);
@@ -424,6 +422,20 @@ public class ClienteTCP {
 		return false;
 	}
 	
+	private static NodeList PecasTotal(Socket sock) {
+		//TODO
+		comando cmd = new comando();
+		Document request = cmd.requestPecasTotal();
+		
+		XMLDoc.writeDocument(request, "requestPecas.xml");
+		
+		XMLReadWrite.documentToSocket(request, sock);
+		
+		Document reply = XMLReadWrite.documentFromSocket(sock);
+		
+		XMLDoc.writeDocument(reply, "replyPecas.xml");
+		return null;
+	}
 	
 	public static void main(String[] args) {
 

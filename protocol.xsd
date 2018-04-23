@@ -71,6 +71,25 @@
 					</xs:complexType>
 				</xs:element>
 				
+				<xs:element name="pecasTotal">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="request">
+								<xs:complexType/>
+							</xs:element>
+							<xs:element name="reply" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Peça" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
+				
+				
 				<xs:element name="consultar">
 					<xs:complexType>
 						<xs:sequence>

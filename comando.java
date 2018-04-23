@@ -21,7 +21,6 @@ public class comando {
 	}
 	
 	public Document requestRegistar(String nif, String nome, String dataNasc) {
-		//TODO
 		Element registar = cmd.createElement("registar");
 		Element request = cmd.createElement("request");
 		registar.appendChild(request);
@@ -45,7 +44,6 @@ public class comando {
 	}
 	
 	public Document replyRegistar() {
-		//TODO
 		Document utilizadores = Loja.getUtilizadores();
 		String nif = cmd.getElementsByTagName("nif").item(0).getTextContent();
 		String nome = cmd.getElementsByTagName("nome").item(0).getTextContent();
@@ -62,7 +60,7 @@ public class comando {
 		utilizadores.getDocumentElement().appendChild(utilizador);
 		
 		Element reply = cmd.createElement("reply");
-		
+	
 		Element registar = (Element) cmd.getElementsByTagName("registar").item(0);
 
 		Element utilizadorVazio = cmd.createElement("Utilizador");
@@ -91,6 +89,31 @@ public class comando {
 			reply.appendChild(utilizadorVazio);
 			return cmd;
 		}
+	}
+	
+	public Document requestPecasTotal() {
+		Element pecasTotal = cmd.createElement("pecasTotal");
+		Element request = cmd.createElement("request");
+		pecasTotal.appendChild(request);
+		Element protocol = (Element) cmd.getElementsByTagName("protocol").item(0);
+		protocol.appendChild(pecasTotal);
+		return cmd;
+	}
+	
+	public Document replyPecasTotal() {
+		//TODO
+		Document catalogo = Loja.getPecas();
+		Element reply = cmd.createElement("reply");
+		
+		NodeList pecas = catalogo.getElementsByTagName("Peça");
+		
+		for(int i = 0; i < pecas.getLength(); i++) {
+			Element clone = (Element) cmd.importNode(pecas.item(i), true);
+			reply.appendChild(clone);
+		}
+		Element pecasTotal = (Element) cmd.getElementsByTagName("pecasTotal").item(0);
+		pecasTotal.appendChild(reply);
+		return cmd;
 	}
 	
 	public Document requestLogin(String nif) {
@@ -214,6 +237,9 @@ public class comando {
 		
 		if(cmd.getElementsByTagName("registar").getLength()==1)
 			com = replyRegistar();
+		
+		if(cmd.getElementsByTagName("pecasTotal").getLength()==1)
+			com = replyPecasTotal();
 		
 		if(com==null)
 			return cmd;
