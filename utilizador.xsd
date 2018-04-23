@@ -20,7 +20,57 @@
 								<xs:annotation>
 									<xs:documentation>Existe se for um cliente</xs:documentation>
 								</xs:annotation>
-								<xs:complexType/>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Carrinho" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Peça no Carrinho de compras do Cliente</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Peça">
+														<xs:annotation>
+															<xs:documentation>Carrinho de compras do Cliente</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:attribute name="ID" use="required">
+																<xs:annotation>
+																	<xs:documentation>ID da peça no carrinho</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:decimal">
+																		<xs:fractionDigits value="0"/>
+																		<xs:minInclusive value="1"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:attribute>
+															<xs:attribute name="Tamanho" use="required">
+																<xs:annotation>
+																	<xs:documentation>Tamanho da peça no carrinho</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:anySimpleType">
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:attribute>
+															<xs:attribute name="Quantidade" use="required">
+																<xs:annotation>
+																	<xs:documentation>Quantidade de peças deste tipo no carrinho</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:unsignedInt">
+																		<xs:fractionDigits value="0"/>
+																		<xs:minInclusive value="1"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:attribute>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
 							</xs:element>
 							<xs:element name="Funcionário">
 								<xs:annotation>
@@ -31,12 +81,6 @@
 										<xs:annotation>
 											<xs:documentation>Local de trabalho</xs:documentation>
 										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:enumeration value="Loja"/>
-												<xs:enumeration value="Caixa"/>
-											</xs:restriction>
-										</xs:simpleType>
 									</xs:attribute>
 								</xs:complexType>
 							</xs:element>
