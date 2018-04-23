@@ -107,6 +107,10 @@
 							</xs:annotation>
 						</xs:attribute>
 					</xs:complexType>
+					<xs:key name="PK_NIF">
+						<xs:selector xpath="Utilizador/NIF"/>
+						<xs:field xpath="@NIF"/>
+					</xs:key>
 				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
