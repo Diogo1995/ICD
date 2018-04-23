@@ -20,6 +20,79 @@ public class comando {
 		XMLReadWrite.writeDocument(cmd, System.out);
 	}
 	
+	public Document requestRegistar(String nif, String nome, String dataNasc) {
+		//TODO
+		Element registar = cmd.createElement("registar");
+		Element request = cmd.createElement("request");
+		registar.appendChild(request);
+		
+		Element protocol = (Element) cmd.getElementsByTagName("protocol").item(0);
+		
+		protocol.appendChild(registar);
+		
+		Element nifElem = cmd.createElement("nif");
+		nifElem.appendChild(cmd.createTextNode(nif));
+		Element nomeElem = cmd.createElement("nome");
+		nomeElem.appendChild(cmd.createTextNode(nome));
+		Element dataElem = cmd.createElement("dataNasc");
+		dataElem.appendChild(cmd.createTextNode(dataNasc));
+		
+		request.appendChild(nifElem);
+		request.appendChild(nomeElem);
+		request.appendChild(dataElem);
+		
+		return cmd;
+	}
+	
+	public Document replyRegistar() {
+		//TODO
+		Document utilizadores = Loja.getUtilizadores();
+		String nif = cmd.getElementsByTagName("nif").item(0).getTextContent();
+		String nome = cmd.getElementsByTagName("nome").item(0).getTextContent();
+		String dataNasc = cmd.getElementsByTagName("dataNasc").item(0).getTextContent();
+		
+		Element utilizador = utilizadores.createElement("Utilizador");
+		Element cliente = utilizadores.createElement("Cliente");
+		
+		utilizador.setAttribute("NIF", nif);
+		utilizador.setAttribute("Nome", nome);
+		utilizador.setAttribute("DataNasc", dataNasc);
+		
+		utilizador.appendChild(cliente);
+		utilizadores.getDocumentElement().appendChild(utilizador);
+		
+		Element reply = cmd.createElement("reply");
+		
+		Element registar = (Element) cmd.getElementsByTagName("registar").item(0);
+
+		Element utilizadorVazio = cmd.createElement("Utilizador");
+		
+		registar.appendChild(reply);
+		
+		try {
+			if(!XMLDoc.validDoc(utilizadores, "utilizador.xsd", XMLConstants.W3C_XML_SCHEMA_NS_URI)) {
+				utilizadores.getDocumentElement().removeChild(utilizador);
+				reply.appendChild(utilizadorVazio);
+				return cmd;
+			}
+			XMLDoc.writeDocument(utilizadores, "utilizador.xml");
+			
+			NodeList todosUtilizadores = utilizadores.getElementsByTagName("Utilizador");
+			for(int i = 0; i < todosUtilizadores.getLength(); i++) {
+				if(todosUtilizadores.item(i).getAttributes().getNamedItem("NIF").getTextContent().equals(nif)) {
+					Element clone = (Element) cmd.importNode(todosUtilizadores.item(i), true);
+					reply.appendChild(clone);
+				}
+			}
+			return cmd;
+		} catch (SAXException e) {
+			//e.printStackTrace();
+			utilizadores.getDocumentElement().removeChild(utilizador);
+			reply.appendChild(utilizadorVazio);
+			return cmd;
+		}
+	}
+	
 	public Document requestLogin(String nif) {
 		Element login = cmd.createElement("login");
 		Element request = cmd.createElement("request");
@@ -66,7 +139,6 @@ public class comando {
 	}
 	
 	public Document replyCatalogo() {
-		//TODO
 		Document catalogo = Loja.getPecas();
 		NodeList pecas = catalogo.getElementsByTagName("Peça");
 		
@@ -84,16 +156,6 @@ public class comando {
 		return cmd;
 	}
 	
-	public Document requestConsultar() {  // usar no cliente
-		// <consultar><request></request></consultar>
-		Element consultar = cmd.createElement("consultar");
-		Element request = cmd.createElement("request");
-		consultar.appendChild(request);
-		Element protocol = (Element) cmd.getElementsByTagName("protocol").item(0);
-		protocol.appendChild(consultar);
-		return cmd; 
-	}
-
 	/*
 	private Document replyConsultar() {  // usar no servidor
 		//TODO
@@ -149,6 +211,9 @@ public class comando {
 		
 		if(cmd.getElementsByTagName("catalogo").getLength()==1)
 			com = replyCatalogo();
+		
+		if(cmd.getElementsByTagName("registar").getLength()==1)
+			com = replyRegistar();
 		
 		if(com==null)
 			return cmd;

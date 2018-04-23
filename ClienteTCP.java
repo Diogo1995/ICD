@@ -17,6 +17,8 @@ public class ClienteTCP {
 	public final static String DEFAULT_HOSTNAME = "localhost";
 
 	public final static int DEFAULT_PORT = 5025;
+	
+	private static Node utilizador;
 
 	/**
 	 * @param sock
@@ -41,30 +43,23 @@ public class ClienteTCP {
 			switch (op) {
 			case '1':
 				String nif = menuLogin(sc);
-				System.out.println(nif);
-				if(Login(sock, nif).equals("Cliente")){
-					menuCliente(sock, sc, nif);
-				}else if(Login(sock, nif).equals("Loja")) menuFuncionarioLoja(sock, sc, nif);
-				else if(Login(sock, nif).equals("Caixa")) menuFuncionarioCaixa(sock, sc, nif);
+				Login(sock, nif);
+				if(utilizador != null) {
+					String tipoUtilizador = utilizador.getChildNodes().item(0).getNodeName();
+					if(tipoUtilizador.equals("Cliente")){
+						menuCliente(sock, sc, nif);
+					}else if(tipoUtilizador.equals("Loja")) menuFuncionarioLoja(sock, sc, nif);
+					else if(tipoUtilizador.equals("Caixa")) menuFuncionarioCaixa(sock, sc, nif);
+					
+				}
+				else  {
+					System.out.println("NIF inexistente no sistema.");
+				}
 				
-				//Login(sock);
+
 				break;
 			case '2':
-				System.out
-						.println("Obter um poema que inclua um dado conjunto de palavras");
-				System.out.println("Indique as palavras: ");
-				ArrayList<String> palList = new ArrayList<String>();
-				String pv = "";
-				do {
-					pv = sc.nextLine();
-					if (pv.compareTo("") == 0)
-						break;
-					palList.add(pv);
-					System.out
-							.println("Indique outra palavra ou <enter> para terminar:");
-				} while (true);
-				String[] palArray = palList.toArray(new String[palList.size()]);
-				//Obter(sock, palArray);
+				menuRegistar(sock, sc);
 				break;
 			case '0':
 				break;
@@ -75,6 +70,23 @@ public class ClienteTCP {
 		sc.close();
 		System.out.println("Terminou a execução.");
 		System.exit(0);
+	}
+	
+	private static boolean menuRegistar(Socket sock, Scanner sc) {
+		System.out.println("Insira o seu nome completo.");
+		String nome = sc.nextLine();
+		System.out.println("Insira o seu NIF.");
+		String nif = sc.nextLine();
+		if(!validarNif(nif)) {
+			System.out.println("Nif inserido inválido ou já existente na base de dados.");
+			return false;
+		}
+		System.out.println("Insira a sua data de nascimento (aaaa-mm-dd) ");
+		String dataNasc = sc.nextLine();
+		if (dataNasc.charAt(0) == '(') {
+			dataNasc = dataNasc.substring(1, dataNasc.length()-1);
+		}
+		return Registar(sock, nif, nome, dataNasc);
 	}
 	
 	public static void menuCliente(Socket sock, Scanner sc, String nif) {
@@ -102,22 +114,25 @@ public class ClienteTCP {
 			switch (op) {
 			case '1':
 				NodeList pecasHSocket = Catalogo(sock, "Homem");
-				NodeList pecasH = getNodesByTag(catalogo, "Secção", "Homem");
-				menuEquipamentos(sock, sc, nif, pecasH, "Homem");
+				//NodeList pecasH = getNodesByTag(catalogo, "Secção", "Homem");
+				menuEquipamentos(sock, sc, nif, pecasHSocket, "Homem");
 				break;
 				
 			case '2':
-				NodeList pecasM = getNodesByTag(catalogo, "Secção", "Mulher");
-				menuEquipamentos(sock, sc, nif, pecasM, "Mulher");
+				NodeList pecasMSocket = Catalogo(sock, "Mulher");
+				//NodeList pecasM = getNodesByTag(catalogo, "Secção", "Mulher");
+				menuEquipamentos(sock, sc, nif, pecasMSocket, "Mulher");
 				break;
 				
 			case '3':
-				NodeList pecasC = getNodesByTag(catalogo, "Secção", "Criança");
-				menuEquipamentos(sock, sc, nif, pecasC, "Criança");
+				NodeList pecasCSocket = Catalogo(sock, "Criança");
+				//NodeList pecasC = getNodesByTag(catalogo, "Secção", "Criança");
+				menuEquipamentos(sock, sc, nif, pecasCSocket, "Criança");
 				break;
 				
 			case '4':
-				NodeList pecasA = getNodesByTag(catalogo, "Secção", "Acessorio");
+				NodeList pecasASocket = Catalogo(sock, "Acessorio");
+				//NodeList pecasA = getNodesByTag(catalogo, "Secção", "Acessorio");
 				//menuPecas();
 				//TODO
 				break;
@@ -128,6 +143,7 @@ public class ClienteTCP {
 				
 			
 			case '6':
+				utilizador = null;
 				menu(sock);
 				break;
 				
@@ -365,7 +381,7 @@ public class ClienteTCP {
 		return false;
 	}
 
-	private static String Login(Socket sock, String nif) {
+	private static void Login(Socket sock, String nif) {
 		comando cmd = new comando();
 		Document request = cmd.requestLogin(nif);
 		// envia pedido
@@ -373,9 +389,9 @@ public class ClienteTCP {
 		// obtém resposta
 		Document reply = XMLReadWrite.documentFromSocket(sock);
 		NodeList utilizadores = reply.getElementsByTagName("Utilizador");
-	
+		
 		Node item = utilizadores.item(0);
-		return item.getChildNodes().item(0).getNodeName();
+		utilizador = item;
 	}
 	
 	private static NodeList Catalogo(Socket sock, String seccao) {
@@ -388,6 +404,24 @@ public class ClienteTCP {
 		Document reply = XMLReadWrite.documentFromSocket(sock);
 		//XMLDoc.writeDocument(reply, "reply.xml");
 		return reply.getElementsByTagName("Peça");
+	}
+	
+	private static boolean Registar(Socket sock, String nif, String nome, String dataNasc) {
+		comando cmd = new comando();
+		Document request = cmd.requestRegistar(nif, nome, dataNasc);
+		//XMLDoc.writeDocument(request, "requestRegistar.xml");
+		
+		XMLReadWrite.documentToSocket(request, sock);
+		
+		Document reply = XMLReadWrite.documentFromSocket(sock);
+		
+		//XMLDoc.writeDocument(reply, "replyRegistar.xml");
+		
+		if(reply.getElementsByTagName("Utilizador").item(0) != null) {
+			utilizador = reply.getElementsByTagName("Utilizador").item(0);
+			return true;
+		}
+		return false;
 	}
 	
 	

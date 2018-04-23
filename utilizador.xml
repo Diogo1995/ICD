@@ -21,4 +21,13 @@
 <Utilizador DataNasc="1234-11-25" NIF="987654321" Nome="Ruben Coelho">
 <Cliente/>
 </Utilizador>
+<Utilizador DataNasc="1994-02-12" NIF="147852369" Nome="Diogo Ahahah">
+<Cliente/>
+</Utilizador>
+<Utilizador DataNasc="1992-11-23" NIF="258741236" Nome="Diogo Eyeyey">
+<Cliente/>
+</Utilizador>
+<Utilizador DataNasc="1994-08-12" NIF="258741236" Nome="Diogo Huehuehue">
+<Cliente/>
+</Utilizador>
 </ListaUtilizadores>
