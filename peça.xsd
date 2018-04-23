@@ -105,6 +105,7 @@
 									<xs:enumeration value="Criança"/>
 									<xs:enumeration value="Mulher"/>
 									<xs:enumeration value="Homem"/>
+									<xs:enumeration value="Acessórios"/>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:attribute>

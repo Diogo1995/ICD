@@ -49,8 +49,7 @@
 																	<xs:documentation>Tamanho da peça no carrinho</xs:documentation>
 																</xs:annotation>
 																<xs:simpleType>
-																	<xs:restriction base="xs:anySimpleType">
-																	</xs:restriction>
+																	<xs:restriction base="xs:normalizedString"/>
 																</xs:simpleType>
 															</xs:attribute>
 															<xs:attribute name="Quantidade" use="required">

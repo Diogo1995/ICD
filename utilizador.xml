@@ -20,4 +20,5 @@
 </Utilizador>
 <Utilizador DataNasc="1234-11-25" NIF="987654321" Nome="Ruben Coelho">
 <Cliente/>
+</Utilizador>
 </ListaUtilizadores>
