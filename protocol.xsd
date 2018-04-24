@@ -27,6 +27,27 @@
 					</xs:complexType>
 				</xs:element>
 				
+				<xs:element name="carrinhos">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="request">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Carrinho" type="xs:string" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="reply" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Carrinho" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
 				<xs:element name="catalogo">
 					<xs:complexType>
 						<xs:sequence>

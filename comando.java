@@ -91,6 +91,30 @@ public class comando {
 		}
 	}
 	
+	public Document requestCarrinhos() {
+		Element carrinhos = cmd.createElement("carrinhos");
+		Element request = cmd.createElement("request");
+		carrinhos.appendChild(request);
+		Element protocol = (Element) cmd.getElementsByTagName("protocol").item(0);
+		protocol.appendChild(carrinhos);
+		return cmd;
+	}
+	
+	public Document replyCarrinhos() {
+		Document utilizadores = Loja.getUtilizadores();
+		Element reply = cmd.createElement("reply");
+		
+		NodeList carrinhos = utilizadores.getElementsByTagName("Carrinho");
+		
+		for(int i = 0; i < carrinhos.getLength(); i++) {
+			Element clone = (Element) cmd.importNode(carrinhos.item(i), true);
+			reply.appendChild(clone);
+		}
+		Element carrinhosReply = (Element) cmd.getElementsByTagName("carrinhos").item(0);
+		carrinhosReply.appendChild(reply);
+		return cmd;
+	}
+	
 	public Document requestPecasTotal() {
 		Element pecasTotal = cmd.createElement("pecasTotal");
 		Element request = cmd.createElement("request");
