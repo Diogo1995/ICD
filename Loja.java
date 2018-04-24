@@ -503,7 +503,7 @@ public class Loja {
 					indexAux++;
 					if (input.equals(Integer.toString(indexAux))) {
 						escolhaExiste = true;
-						mostrarPeca(pecas.item(i), nif, tipo);
+						//mostrarPeca(pecas.item(i), nif, tipo);
 						break;
 						//TODO mostrar descrição do item e fazer um novo menu para comprar um tamanho ou voltar
 					}
@@ -513,7 +513,7 @@ public class Loja {
 	}
 	
 	
-	public void mostrarPeca(Node peca, String nif, String tipo) {
+	/*public void mostrarPeca(Node peca, String nif, String tipo) {
 		String descricao = peca.getChildNodes().item(1).getFirstChild().getNodeValue();
 		if(tipo.equals("Acessorio")) {
 			String quantidade = peca.getChildNodes().item(2).getFirstChild().getNodeValue();
@@ -532,7 +532,8 @@ public class Loja {
 				System.out.println(" -> " + tamanho + ": " + quantidade + "\n");
 			}
 		}
-	}
+	}*/
+	
 	
 	
 	private static void clienteTCP() {
