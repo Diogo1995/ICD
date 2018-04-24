@@ -132,9 +132,10 @@ public class ClienteTCP {
 				break;
 				
 			case '4':
-				NodeList pecasASocket = Catalogo(sock, "Acessorio");
+				NodeList pecasASocket = Catalogo(sock, "Acessórios");
 				//NodeList pecasA = getNodesByTag(catalogo, "Secção", "Acessorio");
-				//menuPecas();
+				menuPecas(sock,sc,nif,pecasASocket,"Acessórios","Acessórios");
+				
 				//TODO
 				break;
 				
