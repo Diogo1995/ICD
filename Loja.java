@@ -503,15 +503,37 @@ public class Loja {
 					indexAux++;
 					if (input.equals(Integer.toString(indexAux))) {
 						escolhaExiste = true;
-						
+						mostrarPeca(pecas.item(i), nif, tipo);
+						break;
 						//TODO mostrar descrição do item e fazer um novo menu para comprar um tamanho ou voltar
 					}
 				}
 			}
-			
-			
 		}
 	}
+	
+	
+	public void mostrarPeca(Node peca, String nif, String tipo) {
+		String descricao = peca.getChildNodes().item(1).getFirstChild().getNodeValue();
+		if(tipo.equals("Acessorio")) {
+			String quantidade = peca.getChildNodes().item(2).getFirstChild().getNodeValue();
+			System.out.println("\nDescrição do item:\n" + descricao);
+			System.out.println("\nQuantidade disponível: " + quantidade);
+		}else {
+			NodeList tamanhos = peca.getChildNodes().item(2).getChildNodes();
+			String tamanho;
+			String quantidade;
+			System.out.println("\nDescrição do item:\n" + descricao);
+			System.out.println("\nTamanhos e quantidades disponíveis:\n");
+			
+			for(int i = 0; i < tamanhos.getLength(); i++) {
+				tamanho = tamanhos.item(i).getAttributes().getNamedItem("Valor").getTextContent();
+				quantidade = tamanhos.item(i).getAttributes().getNamedItem("Quantidade").getTextContent();
+				System.out.println(" -> " + tamanho + ": " + quantidade + "\n");
+			}
+		}
+	}
+	
 	
 	private static void clienteTCP() {
 		String host = "10.10.7.219";  // Máquina onde reside a aplicação servidora
