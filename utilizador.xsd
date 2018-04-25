@@ -28,7 +28,7 @@
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="Peça">
+													<xs:element name="Peça" maxOccurs="unbounded">
 														<xs:annotation>
 															<xs:documentation>Carrinho de compras do Cliente</xs:documentation>
 														</xs:annotation>

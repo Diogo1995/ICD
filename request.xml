@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <protocol>
-<catalogo>
-<request>
-<seccao>Homem</seccao>
-</request>
-</catalogo>
+<carrinhos>
+<request/>
+</carrinhos>
 </protocol>

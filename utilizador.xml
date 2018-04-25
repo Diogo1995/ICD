@@ -19,6 +19,11 @@
 <Cliente/>
 </Utilizador>
 <Utilizador DataNasc="1234-11-25" NIF="987654321" Nome="Ruben Coelho">
-<Cliente/>
+<Cliente>
+<Carrinho>
+<Peça ID="6" Tamanho="XL" Quantidade="1"/>
+<Peça ID="5" Tamanho="XL" Quantidade="1"/>
+</Carrinho>
+</Cliente>
 </Utilizador>
 </ListaUtilizadores>

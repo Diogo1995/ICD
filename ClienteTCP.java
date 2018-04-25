@@ -141,6 +141,8 @@ public class ClienteTCP {
 				
 			case '5':
 				//TODO
+				NodeList pecasCarrinho = Carrinho(sock);
+				menuCarrinho(sock,sc,pecasCarrinho);
 				break;
 				
 			
@@ -325,6 +327,31 @@ public class ClienteTCP {
 		}
 	}
 	
+	public static void menuCarrinho(Socket sock, Scanner sc,NodeList pecasCarrinho) {
+		
+		if(!utilizador.getFirstChild().hasChildNodes()){
+			System.out.println("##########################");
+			System.out.println();
+			System.out.println("Não Tem Peças no Carrinho");
+			System.out.println();
+			System.out.println("##########################");
+		}
+		
+		NodeList n = utilizador.getFirstChild().getChildNodes();
+		
+		
+		System.out.println(n.item(0).getChildNodes().item(0).getAttributes().getNamedItem("ID"));
+		int numPecas =0;
+		
+		
+		for(int i = 0; i < n.item(0).getChildNodes().getLength(); i++) {
+					System.out.println(++numPecas + " - " + n.item(0).getChildNodes().item(i).getAttributes().getNamedItem("ID"));
+		}
+		
+		//TODO Não está finalizado
+		
+	}
+	
 	private static String apenasNumeros(Scanner sc, int numPecas) {//TODO alterar nome
 		String input = sc.nextLine();
 		boolean nums = false;
@@ -407,6 +434,18 @@ public class ClienteTCP {
 		Document reply = XMLReadWrite.documentFromSocket(sock);
 		//XMLDoc.writeDocument(reply, "reply.xml");
 		return reply.getElementsByTagName("Peça");
+	}
+	
+	private static NodeList Carrinho(Socket sock){
+		comando cmd = new comando();
+		Document request = cmd.requestCarrinhos();
+		//XMLDoc.writeDocument(request, "request.xml");
+		//envia pedido
+		XMLReadWrite.documentToSocket(request, sock);
+		//obtém resposta
+		Document reply = XMLReadWrite.documentFromSocket(sock);
+		//XMLDoc.writeDocument(reply, "reply.xml");
+		return reply.getElementsByTagName("Carrinho");
 	}
 	
 	private static boolean Registar(Socket sock, String nif, String nome, String dataNasc) {
