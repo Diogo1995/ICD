@@ -142,7 +142,7 @@ public class ClienteTCP {
 			case '5':
 				//TODO
 				NodeList pecasCarrinho = Carrinho(sock);
-				menuCarrinho(sock,sc,pecasCarrinho);
+				menuCarrinho(sock,sc,nif,pecasCarrinho);
 				break;
 				
 			
@@ -327,8 +327,9 @@ public class ClienteTCP {
 		}
 	}
 	
-	public static void menuCarrinho(Socket sock, Scanner sc,NodeList pecasCarrinho) {
-		
+	public static void menuCarrinho(Socket sock, Scanner sc,String nif,NodeList pecasCarrinho) {
+		char op;
+		int numPecas =0;
 		if(!utilizador.getFirstChild().hasChildNodes()){
 			System.out.println("##########################");
 			System.out.println();
@@ -340,17 +341,45 @@ public class ClienteTCP {
 		NodeList n = utilizador.getFirstChild().getChildNodes();
 		
 		
-		System.out.println(n.item(0).getChildNodes().item(0).getAttributes().getNamedItem("ID"));
-		int numPecas =0;
+		//System.out.println(n.item(0).getChildNodes().item(0).getAttributes().getNamedItem("ID"));
+		
 		
 		
 		for(int i = 0; i < n.item(0).getChildNodes().getLength(); i++) {
 					System.out.println(++numPecas + " - " + n.item(0).getChildNodes().item(i).getAttributes().getNamedItem("ID"));
 		}
 		
+		
+		do {
+			System.out.println();
+			System.out.println();
+			System.out.println("*** Caso queira retirar uma peça escolha o número da peça a retirar ***");
+			System.out.println("! - Voltar.");
+			System.out.println("0 - Terminar!");
+			String str = sc.nextLine();
+			if (str != null && str.length() > 0)
+				op = str.charAt(0);
+			else
+				op = ' ';
+			switch (op) {
+			
+			
+			case '!':
+				menuCliente(sock,sc,nif);
+				break;
+				
+			case '0':
+				break;
+			default:
+				System.out.println("Opção inválida, esolha uma opção do menu.");
+			}
+		} while (op != '0');
+		sc.close();
+		System.exit(0);
+	}
 		//TODO Não está finalizado
 		
-	}
+	
 	
 	private static String apenasNumeros(Scanner sc, int numPecas) {//TODO alterar nome
 		String input = sc.nextLine();
