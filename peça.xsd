@@ -20,9 +20,9 @@
 								</xs:annotation>
 								<xs:complexType mixed="true">
 									<xs:all>
-										<xs:element name="Carateristica" minOccurs="0">
+										<xs:element name="Caracteristica" minOccurs="0">
 											<xs:annotation>
-												<xs:documentation>Carateristica referida na descrição da peça</xs:documentation>
+												<xs:documentation>Caracteristica referida na descrição da peça</xs:documentation>
 											</xs:annotation>
 										</xs:element>
 									</xs:all>

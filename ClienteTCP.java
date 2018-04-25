@@ -316,9 +316,8 @@ public class ClienteTCP {
 				if(pecas.item(i).hasAttributes() && pecas.item(i).getChildNodes().item(5).getNodeName().equals(tipo)) {
 					indexAux++;
 					if (input.equals(Integer.toString(indexAux))) {
-						escolhaExiste = true;
-						
-						mostrarPeca(pecas.item(i), nif, tipo);
+						escolhaExiste = true;						
+						mostrarPeca(sc, pecas.item(i), nif, tipo);
 						//TODO mostrar descrição do item e fazer um novo menu para comprar um tamanho ou voltar
 					}
 				}
@@ -508,24 +507,56 @@ public class ClienteTCP {
 	}
 	
 	
-	public static void mostrarPeca(Node peca, String nif, String tipo) {
-		String descricao = peca.getChildNodes().item(1).getFirstChild().getNodeValue();
-		if(tipo.equals("Acessorio")) {
-			String quantidade = peca.getChildNodes().item(2).getFirstChild().getNodeValue();
-			System.out.println("\nDescrição do item:\n" + descricao);
-			System.out.println("\nQuantidade disponível: " + quantidade);
+	public static void mostrarPeca(Scanner sc, Node peca, String nif, String tipo) {
+		Element pecaElement = (Element) peca.getChildNodes();
+		Element descricao = (Element) pecaElement.getElementsByTagName("Descrição").item(0).getChildNodes();
+		String caracteristicas = descricao.getElementsByTagName("Caracteristica").item(0).getTextContent();
+		
+		System.out.println("\nDescrição do item:\n" + caracteristicas);
+		
+		if(tipo.equals("Acessórios")) {			
+			Element AcessoriosElement = (Element) pecaElement.getElementsByTagName("Acessórios").item(0).getChildNodes();
+			String quantidade = AcessoriosElement.getElementsByTagName("Quantidade").item(0).getAttributes().getNamedItem("Quantidade").getTextContent();
+			System.out.println("\nQuantidade disponível: " + quantidade + " em stock");
+			
+			System.out.println("\nIntroduza 1 para adicionar este item ao seu carrinho ou 0 para voltar ao menu anterior.");
+			String input = apenasNumeros(sc, 1);
+			if(input.equals("0")) return;
+			else {
+				//TODO
+			}
+
+			
 		}else {
-			NodeList tamanhos = peca.getChildNodes().item(2).getChildNodes();
+			NodeList tamanhos;
+			
+			if(tipo.equals("Vestuário")) {
+				Element VestuárioElement = (Element) pecaElement.getElementsByTagName("Vestuário").item(0).getChildNodes();
+				tamanhos = VestuárioElement.getElementsByTagName("Tamanho");
+			}else {
+				Element VestuárioElement = (Element) pecaElement.getElementsByTagName("Calçado").item(0).getChildNodes();
+				tamanhos = VestuárioElement.getElementsByTagName("Tamanho");
+			}
+			
 			String tamanho;
 			String quantidade;
-			System.out.println("\nDescrição do item:\n" + descricao);
+			
 			System.out.println("\nTamanhos e quantidades disponíveis:\n");
 			
 			for(int i = 0; i < tamanhos.getLength(); i++) {
 				tamanho = tamanhos.item(i).getAttributes().getNamedItem("Valor").getTextContent();
 				quantidade = tamanhos.item(i).getAttributes().getNamedItem("Quantidade").getTextContent();
-				System.out.println(" -> " + tamanho + ": " + quantidade + "\n");
+				System.out.println(1+i + " -> tamanho " + tamanho + ": " + quantidade + " em stock");
 			}
+			
+			System.out.println("\nIntroduza o número do item que deseja adicionar ao seu carrinho ou 0 para voltar ao menu anterior.");
+			String input = apenasNumeros(sc, tamanhos.getLength());
+			if(input.equals("0")) return;
+			else {
+
+				//TODO
+			}
+
 		}
 	}
 	
