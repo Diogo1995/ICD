@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ListaUtilizadores>
 <Utilizador DataNasc="1994-10-21" NIF="293827172" Nome="Pedro Pedro">
-<Cliente>
-<Carrinho>
-<Peça ID="3" Quantidade="1" Tamanho="42"/>
-</Carrinho>
-</Cliente>
+<Cliente/>
 </Utilizador>
 <Utilizador DataNasc="1995-04-12" NIF="182938271" Nome="André André">
 <Funcionário Local="Caixa"/>
@@ -16,28 +12,17 @@
 <Utilizador DataNasc="1994-07-13" NIF="123456789" Nome="Diogo Diogo">
 <Cliente>
 <Carrinho>
-<Peça ID="5" Quantidade="3" Tamanho="M"/>
+<Peça ID="2" Quantidade="2" Tamanho="M"/>
 </Carrinho>
 </Cliente>
 </Utilizador>
 <Utilizador DataNasc="1998-10-26" NIF="124587963" Nome="Vasco Vasco">
-<Cliente>
-
-</Cliente>
+<Cliente/>
 </Utilizador>
 <Utilizador DataNasc="1994-08-04" NIF="123654789" Nome="Rogério Rogério">
-<Cliente>
-<Carrinho>
-<Peça ID="5" Quantidade="1" Tamanho="M"/>
-</Carrinho>
-</Cliente>
+<Cliente/>
 </Utilizador>
 <Utilizador DataNasc="1234-11-25" NIF="987654321" Nome="Ruben Coelho">
-<Cliente>
-<Carrinho>
-<Peça ID="6" Quantidade="1" Tamanho="10/12"/>
-<Peça ID="5" Quantidade="1" Tamanho="XL"/>
-</Carrinho>
-</Cliente>
+<Cliente/>
 </Utilizador>
 </ListaUtilizadores>

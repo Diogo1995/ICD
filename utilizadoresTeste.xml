@@ -15,14 +15,14 @@
 </Utilizador>
 <Utilizador DataNasc="1994-07-13" NIF="123456789" Nome="Diogo Diogo">
 <Cliente>
-<Carrinho>
-<Peça ID="5" Quantidade="3" Tamanho="M"/>
-</Carrinho>
+
 </Cliente>
 </Utilizador>
 <Utilizador DataNasc="1998-10-26" NIF="124587963" Nome="Vasco Vasco">
 <Cliente>
-
+<Carrinho>
+<Peça ID="6" Quantidade="1" Tamanho="10/12"/>
+</Carrinho>
 </Cliente>
 </Utilizador>
 <Utilizador DataNasc="1994-08-04" NIF="123654789" Nome="Rogério Rogério">
