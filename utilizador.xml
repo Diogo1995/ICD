@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ListaUtilizadores>
 <Utilizador DataNasc="1994-10-21" NIF="293827172" Nome="Pedro Pedro">
-<Cliente>
-<Carrinho>
-<Peça ID="3" Quantidade="1" Tamanho="42"/>
-</Carrinho>
-</Cliente>
+<Cliente/>
 </Utilizador>
 <Utilizador DataNasc="1995-04-12" NIF="182938271" Nome="André André">
 <Funcionário Local="Caixa"/>
@@ -14,6 +10,7 @@
 <Funcionário Local="Loja"/>
 </Utilizador>
 <Utilizador DataNasc="1994-07-13" NIF="123456789" Nome="Diogo Diogo">
+<<<<<<< HEAD
 <Cliente>
 <Carrinho>
 <<<<<<< HEAD
@@ -48,12 +45,21 @@
 >>>>>>> 9c4bf49cf82142d63e3059a6fe7b12bada33e795
 </Carrinho>
 </Cliente>
+=======
+<Cliente/>
+</Utilizador>
+<Utilizador DataNasc="1998-10-26" NIF="124587963" Nome="Vasco Vasco">
+<Cliente/>
+</Utilizador>
+<Utilizador DataNasc="1994-08-04" NIF="123654789" Nome="Rogério Rogério">
+<Cliente/>
+>>>>>>> parent of 9c4bf49... "Final" de TP1
 </Utilizador>
 <Utilizador DataNasc="1234-11-25" NIF="987654321" Nome="Ruben Coelho">
 <Cliente>
 <Carrinho>
-<Peça ID="6" Quantidade="1" Tamanho="10/12"/>
-<Peça ID="5" Quantidade="1" Tamanho="XL"/>
+<Peça ID="6" Tamanho="XL" Quantidade="1"/>
+<Peça ID="5" Tamanho="XL" Quantidade="1"/>
 </Carrinho>
 </Cliente>
 </Utilizador>

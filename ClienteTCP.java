@@ -496,6 +496,7 @@ public class ClienteTCP {
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private static NodeList AdicionarPeca(Socket sock, String designacao, String seccao, String preco, String tipo) {
 		comando cmd = new comando();
 		
@@ -509,6 +510,8 @@ public class ClienteTCP {
 		return pecas;
 	}
 	
+=======
+>>>>>>> parent of 9c4bf49... "Final" de TP1
 	private static NodeList PecasTotal(Socket sock) {
 		//TODO
 		comando cmd = new comando();
@@ -525,6 +528,7 @@ public class ClienteTCP {
 	}
 	
 	
+<<<<<<< HEAD
 	private static Node AdicionarCarrinho(Socket sock, int idPeca, int quantidade, String tamanho) {
 		comando cmd = new comando();
 		
@@ -577,6 +581,8 @@ public class ClienteTCP {
 	
 	public static void mostrarPeca(Socket sock, Scanner sc, Node peca, String nif, String tipo) {
 =======
+=======
+>>>>>>> parent of 9c4bf49... "Final" de TP1
 	public static void mostrarPeca(Scanner sc, Node peca, String nif, String tipo) {
 >>>>>>> 9c4bf49cf82142d63e3059a6fe7b12bada33e795
 		Element pecaElement = (Element) peca.getChildNodes();
@@ -633,114 +639,6 @@ public class ClienteTCP {
 				AdicionarCarrinho(sock, idPeca, quantidadePecas, tamanhoPretendido);
 			}
 		}
-	}
-	
-	private static NodeList PecasTotal(Socket sock) {
-		comando cmd = new comando();
-		Document request = cmd.requestPecasTotal();
-		
-		XMLReadWrite.documentToSocket(request, sock);
-		
-		Document reply = XMLReadWrite.documentFromSocket(sock);
-		
-		NodeList pecas = reply.getElementsByTagName("Peça");
-		return pecas;
-	}
-	
-	private static NodeList MostrarTodosCarrinhos(Socket sock) {
-		comando cmd = new comando();
-		
-		Document request = cmd.requestTodosCarrinhos();
-		
-		XMLReadWrite.documentToSocket(request, sock);
-		
-		Document reply = XMLReadWrite.documentFromSocket(sock);
-		
-		NodeList carrinhos = reply.getElementsByTagName("Carrinho");
-		
-		return carrinhos;
-	}
-	
-	private static NodeList AprovarCarrinho(Socket sock, String nif) {
-		comando cmd = new comando();
-		
-		Document request = cmd.requestAprovarCarrinho(nif);
-		
-		XMLReadWrite.documentToSocket(request, sock);
-		
-		XMLDoc.writeDocument(request, "requestCarrinho.xml");
-		
-		Document reply = XMLReadWrite.documentFromSocket(sock);
-		
-		XMLDoc.writeDocument(reply, "replyCarrinho.xml");
-		
-		NodeList carrinhos = reply.getElementsByTagName("Carrinho");
-		
-		return carrinhos;
-	}
-	
-	private static Node AdicionarCarrinho(Socket sock) {
-		//TODO
-		comando cmd = new comando();
-		//Teste
-		int idPeca = 2;
-		int quantidade = 2;
-		String tamanho = "M";
-		
-		Document request = cmd.requestAdicionarCarrinho(utilizador.getAttributes().getNamedItem("NIF").getTextContent(), idPeca, tamanho, quantidade);
-		
-		XMLReadWrite.documentToSocket(request, sock);
-		
-		XMLDoc.writeDocument(request, "requestCarrinho.xml");
-		
-		Document reply = XMLReadWrite.documentFromSocket(sock);
-		
-		XMLDoc.writeDocument(reply, "replyCarrinho.xml");
-		
-		Node carrinho = reply.getElementsByTagName("Carrinho").item(0);
-		
-		return carrinho;
-	}
-	
-	private static NodeList AdicionarPeca(Socket sock, String designacao, String seccao, String preco, String tipo) {
-		comando cmd = new comando();
-		
-		Document request = cmd.requestAdicionarPeca(designacao, seccao, preco, tipo);
-		
-		XMLReadWrite.documentToSocket(request, sock);
-		
-		Document reply = XMLReadWrite.documentFromSocket(sock);
-		
-		NodeList pecas = reply.getElementsByTagName("Peça");
-		return pecas;
-	}
-	
-	private static Node ModificarPreco(Socket sock, String idPeca, String preco) {
-		comando cmd = new comando();
-		
-		Document request = cmd.requestModificarPreco(idPeca, preco);
-		
-		XMLReadWrite.documentToSocket(request, sock);
-		
-		Document reply = XMLReadWrite.documentFromSocket(sock);
-		
-		Node peca = reply.getElementsByTagName("Peça").item(0);
-		
-		return peca;
-	}
-	
-	private static Node ModificarQuantidade(Socket sock, String idPeca, String tamanho, String quantidade) {
-		comando cmd = new comando();
-		
-		Document request = cmd.requestModificarQuantidade(idPeca, tamanho, quantidade);
-		
-		XMLReadWrite.documentToSocket(request, sock);
-		
-		Document reply = XMLReadWrite.documentFromSocket(sock);
-		
-		Node peca = reply.getElementsByTagName("Peça").item(0);
-		
-		return peca;
 	}
 	
 	public static void main(String[] args) {
