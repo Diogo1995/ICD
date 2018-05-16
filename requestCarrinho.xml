@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <protocol>
+<<<<<<< HEAD
 <adicionarCarrinho>
 <request>
 <nif>123456789</nif>
@@ -8,4 +9,11 @@
 <quantidade>1</quantidade>
 </request>
 </adicionarCarrinho>
+=======
+<aprovarCarrinho>
+<request>
+<nif>123654789</nif>
+</request>
+</aprovarCarrinho>
+>>>>>>> 9c4bf49cf82142d63e3059a6fe7b12bada33e795
 </protocol>

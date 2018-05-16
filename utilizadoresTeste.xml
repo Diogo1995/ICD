@@ -15,37 +15,20 @@
 </Utilizador>
 <Utilizador DataNasc="1994-07-13" NIF="123456789" Nome="Diogo Diogo">
 <Cliente>
-<Carrinho>
-<<<<<<< HEAD
-<Peça ID="5" Quantidade="1" Tamanho="M"/>
-<Peça ID="4" Quantidade="1" Tamanho="40"/>
-=======
-<Peça ID="5" Quantidade="3" Tamanho="M"/>
->>>>>>> 9c4bf49cf82142d63e3059a6fe7b12bada33e795
-</Carrinho>
+
 </Cliente>
 </Utilizador>
 <Utilizador DataNasc="1998-10-26" NIF="124587963" Nome="Vasco Vasco">
 <Cliente>
-<<<<<<< HEAD
 <Carrinho>
 <Peça ID="6" Quantidade="1" Tamanho="10/12"/>
 </Carrinho>
-=======
-
->>>>>>> 9c4bf49cf82142d63e3059a6fe7b12bada33e795
 </Cliente>
 </Utilizador>
 <Utilizador DataNasc="1994-08-04" NIF="123654789" Nome="Rogério Rogério">
 <Cliente>
-<<<<<<< HEAD
-
-<Carrinho>
-<Peça ID="6" Quantidade="1" Tamanho="12/14"/>
-=======
 <Carrinho>
 <Peça ID="5" Quantidade="1" Tamanho="M"/>
->>>>>>> 9c4bf49cf82142d63e3059a6fe7b12bada33e795
 </Carrinho>
 </Cliente>
 </Utilizador>
