@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<protocol>
+<adicionarCarrinho>
+<request>
+<nif>123456789</nif>
+<idPeca>1</idPeca>
+<tamanho>Valor</tamanho>
+<quantidade>1</quantidade>
+</request>
+</adicionarCarrinho>
+</protocol>

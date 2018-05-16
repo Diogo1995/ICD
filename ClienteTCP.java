@@ -49,8 +49,8 @@ public class ClienteTCP {
 					String tipoUtilizador = utilizador.getChildNodes().item(0).getNodeName();
 					if(tipoUtilizador.equals("Cliente")){
 						menuCliente(sock, sc, nif);
-					}else if(tipoUtilizador.equals("Loja")) menuFuncionarioLoja(sock, sc, nif);
-					else if(tipoUtilizador.equals("Caixa")) menuFuncionarioCaixa(sock, sc, nif);
+					}else if(utilizador.getChildNodes().item(0).getAttributes().getNamedItem("Local").getTextContent().equals("Loja")) menuFuncionarioLoja(sock, sc, nif);
+					else if(utilizador.getChildNodes().item(0).getAttributes().getNamedItem("Local").getTextContent().equals("Caixa")) menuFuncionarioCaixa(sock, sc, nif);
 					
 				}
 				else  {
@@ -181,7 +181,8 @@ public class ClienteTCP {
 			switch (op) {
 			
 			case '1':
-				//apresenta();
+				NodeList carrinhos = mostrarTodosCarrinhos(sock);
+				
 				//TODO
 				break;
 				
@@ -317,7 +318,7 @@ public class ClienteTCP {
 					indexAux++;
 					if (input.equals(Integer.toString(indexAux))) {
 						escolhaExiste = true;						
-						mostrarPeca(sc, pecas.item(i), nif, tipo);
+						mostrarPeca(sock, sc, pecas.item(i), nif, tipo);
 						//TODO mostrar descrição do item e fazer um novo menu para comprar um tamanho ou voltar
 					}
 				}
@@ -328,13 +329,14 @@ public class ClienteTCP {
 	
 	public static void menuCarrinho(Socket sock, Scanner sc,String nif,NodeList pecasCarrinho) {
 		char op;
-		int numPecas =0;
+		
 		if(!utilizador.getFirstChild().hasChildNodes()){
 			System.out.println("##########################");
 			System.out.println();
 			System.out.println("Não Tem Peças no Carrinho");
 			System.out.println();
 			System.out.println("##########################");
+			return;
 		}
 		
 		NodeList n = utilizador.getFirstChild().getChildNodes();
@@ -344,12 +346,14 @@ public class ClienteTCP {
 		
 		
 		
-		for(int i = 0; i < n.item(0).getChildNodes().getLength(); i++) {
-					System.out.println(++numPecas + " - " + n.item(0).getChildNodes().item(i).getAttributes().getNamedItem("ID"));
-		}
+		
 		
 		
 		do {
+			int numPecas =0;
+			for(int i = 0; i < utilizador.getFirstChild().getChildNodes().item(0).getChildNodes().getLength(); i++) {
+				System.out.println(++numPecas + " - " + utilizador.getFirstChild().getChildNodes().item(0).getChildNodes().item(i).getAttributes().getNamedItem("ID"));
+			}
 			System.out.println();
 			System.out.println();
 			System.out.println("*** Caso queira retirar uma peça escolha o número da peça a retirar ***");
@@ -364,8 +368,7 @@ public class ClienteTCP {
 			
 			
 			case '!':
-				menuCliente(sock,sc,nif);
-				break;
+				return;
 				
 			case '0':
 				break;
@@ -387,7 +390,8 @@ public class ClienteTCP {
 		while (!nums) {
 			for(int i = 0; i < input.length(); i++) {
 				if (!Character.isDigit(input.charAt(i))) {
-					System.out.println("\nIntroduza apenas números!\n");
+					System.out.println("\nIntroduza apenas números! Valor entre 0 e " + numPecas + "\n");
+					input = sc.nextLine();
 					nums = false;
 					break;
 				}else nums = true;
@@ -491,6 +495,19 @@ public class ClienteTCP {
 		return false;
 	}
 	
+	private static NodeList AdicionarPeca(Socket sock, String designacao, String seccao, String preco, String tipo) {
+		comando cmd = new comando();
+		
+		Document request = cmd.requestAdicionarPeca(designacao, seccao, preco, tipo);
+		
+		XMLReadWrite.documentToSocket(request, sock);
+		
+		Document reply = XMLReadWrite.documentFromSocket(sock);
+		
+		NodeList pecas = reply.getElementsByTagName("Peça");
+		return pecas;
+	}
+	
 	private static NodeList PecasTotal(Socket sock) {
 		//TODO
 		comando cmd = new comando();
@@ -507,7 +524,57 @@ public class ClienteTCP {
 	}
 	
 	
-	public static void mostrarPeca(Scanner sc, Node peca, String nif, String tipo) {
+	private static Node AdicionarCarrinho(Socket sock, int idPeca, int quantidade, String tamanho) {
+		comando cmd = new comando();
+		
+		Document request = cmd.requestAdicionarCarrinho(utilizador.getAttributes().getNamedItem("NIF").getTextContent(), idPeca, tamanho, quantidade);
+		
+		XMLReadWrite.documentToSocket(request, sock);
+				
+		Document reply = XMLReadWrite.documentFromSocket(sock);
+				
+		Node carrinho = reply.getElementsByTagName("Carrinho").item(0);
+	
+		return carrinho;
+	}
+	
+	private static NodeList AprovarCarrinho(Socket sock, String nif) {
+		comando cmd = new comando();
+		
+		Document request = cmd.requestAprovarCarrinho(nif);
+		
+		XMLReadWrite.documentToSocket(request, sock);
+				
+		Document reply = XMLReadWrite.documentFromSocket(sock);
+				
+		NodeList carrinhos = reply.getElementsByTagName("Carrinho");
+		
+		return carrinhos;
+	}
+	
+	private static NodeList mostrarTodosCarrinhos(Socket sock) {
+		comando cmd = new comando();
+		
+		Document request = cmd.requestTodosCarrinhos();
+		
+		XMLReadWrite.documentToSocket(request, sock);
+		
+		Document reply = XMLReadWrite.documentFromSocket(sock);
+		
+		NodeList carrinhos = reply.getElementsByTagName("Carrinho");
+		
+		return carrinhos;
+	}
+	
+	public static int quantidadePretendida(Scanner sc, int quantMax) {
+		System.out.println("\nIntroduza a quantidade de itens pretendida (min 0 e máx " + quantMax + ")");
+		int input = Integer.parseInt(apenasNumeros(sc, quantMax));
+		
+		return input;
+	}
+	
+	
+	public static void mostrarPeca(Socket sock, Scanner sc, Node peca, String nif, String tipo) {
 		Element pecaElement = (Element) peca.getChildNodes();
 		Element descricao = (Element) pecaElement.getElementsByTagName("Descrição").item(0).getChildNodes();
 		String caracteristicas = descricao.getElementsByTagName("Caracteristica").item(0).getTextContent();
@@ -523,9 +590,11 @@ public class ClienteTCP {
 			String input = apenasNumeros(sc, 1);
 			if(input.equals("0")) return;
 			else {
-				//TODO
+				int idPeca = Integer.parseInt(peca.getAttributes().getNamedItem("idPeça").getTextContent());
+				int quantidadePecas = quantidadePretendida(sc, Integer.parseInt(quantidade));
+				
+				AdicionarCarrinho(sock, idPeca, quantidadePecas, "");
 			}
-
 			
 		}else {
 			NodeList tamanhos;
@@ -553,10 +622,12 @@ public class ClienteTCP {
 			String input = apenasNumeros(sc, tamanhos.getLength());
 			if(input.equals("0")) return;
 			else {
-
-				//TODO
+				int idPeca = Integer.parseInt(peca.getAttributes().getNamedItem("idPeça").getTextContent());
+				int quantidadePecas = quantidadePretendida(sc, Integer.parseInt(tamanhos.item(Integer.parseInt(input)-1).getAttributes().getNamedItem("Quantidade").getTextContent()));
+				String tamanhoPretendido = tamanhos.item(Integer.parseInt(input)-1).getAttributes().getNamedItem("Valor").getTextContent();
+				
+				AdicionarCarrinho(sock, idPeca, quantidadePecas, tamanhoPretendido);
 			}
-
 		}
 	}
 	

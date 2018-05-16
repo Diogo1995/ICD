@@ -48,6 +48,68 @@
 					</xs:complexType>
 				</xs:element>
 				
+				<xs:element name="adicionarCarrinho">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="request">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="nif" type="xs:string" maxOccurs="1"/>
+										<xs:element name="idPeca" type="xs:string" maxOccurs="1" minOccurs="1"/>
+										<xs:element name="tamanho" type="xs:string" maxOccurs="1" minOccurs="1"/>
+										<xs:element name="quantidade" type="xs:string" maxOccurs="1" minOccurs="1"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="reply" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Carrinho" minOccurs="0" maxOccurs="1"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="mostrarTodosCarrinhos">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="request">
+								<xs:complexType/>
+							</xs:element>
+							<xs:element name="reply" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Carrinho" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="aprovarCarrinho">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="request">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="nif" maxOccurs="1"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="reply" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Carrinho" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
 				<xs:element name="catalogo">
 					<xs:complexType>
 						<xs:sequence>
@@ -109,8 +171,6 @@
 					</xs:complexType>
 				</xs:element>
 				
-				
-				
 				<xs:element name="consultar">
 					<xs:complexType>
 						<xs:sequence>
@@ -128,6 +188,77 @@
 					</xs:complexType>
 				</xs:element>
 				
+				<xs:element name="adicionarPeca">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="request">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="nome"/>
+										<xs:element name="designacao"/>
+										<xs:element name="seccao"/>
+										<xs:element name="preco"/>
+										<xs:element name="tipo"/>
+										<xs:element name="tamanho"/>
+										<xs:element name="quantidade"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="reply" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Peça" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="modificarPreco">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="request">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="idPeca"/>
+										<xs:element name="preco"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="reply" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Peça" minOccurs="0" maxOccurs="1"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="modificarQuantidade">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="request">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="idPeca"/>
+										<xs:element name="tamanho"/>
+										<xs:element name="quantidade"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="reply" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Peça" minOccurs="0" maxOccurs="1"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
 				
 			</xs:choice>
 		</xs:complexType>

@@ -86,7 +86,7 @@
 						</xs:choice>
 						<xs:attribute name="NIF" use="required">
 							<xs:annotation>
-								<xs:documentation>Numero de Identificação Fiscal			</xs:documentation>
+								<xs:documentation>Numero de Identificação Fiscal</xs:documentation>
 							</xs:annotation>
 							<xs:simpleType>
 								<xs:restriction base="xs:decimal">

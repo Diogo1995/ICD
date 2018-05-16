@@ -32,7 +32,7 @@
 								<xs:element name="Vestuário">
 									<xs:complexType>
 										<xs:sequence>
-											<xs:element name="Tamanho" maxOccurs="unbounded">
+											<xs:element name="Tamanho" minOccurs="0" maxOccurs="unbounded">
 												<xs:complexType>
 													<xs:attribute name="Valor" use="required">
 														<xs:annotation>
@@ -52,7 +52,7 @@
 								<xs:element name="Calçado">
 									<xs:complexType>
 										<xs:sequence>
-											<xs:element name="Tamanho" maxOccurs="unbounded">
+											<xs:element name="Tamanho" minOccurs="0" maxOccurs="unbounded">
 												<xs:complexType>
 													<xs:attribute name="Valor" type="xs:byte" use="required">
 														<xs:annotation>
@@ -72,7 +72,7 @@
 								<xs:element name="Acessórios">
 									<xs:complexType>
 										<xs:sequence>
-											<xs:element name="Quantidade" maxOccurs="1">
+											<xs:element name="Quantidade" minOccurs="0" maxOccurs="1">
 												<xs:complexType>
 													<xs:attribute name="Quantidade" type="xs:unsignedInt" use="required">
 														<xs:annotation>
