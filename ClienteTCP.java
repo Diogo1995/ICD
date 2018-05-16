@@ -495,8 +495,7 @@ public class ClienteTCP {
 		return false;
 	}
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	private static NodeList AdicionarPeca(Socket sock, String designacao, String seccao, String preco, String tipo) {
 		comando cmd = new comando();
 		
@@ -509,9 +508,8 @@ public class ClienteTCP {
 		NodeList pecas = reply.getElementsByTagName("Peça");
 		return pecas;
 	}
-	
-=======
->>>>>>> parent of 9c4bf49... "Final" de TP1
+
+
 	private static NodeList PecasTotal(Socket sock) {
 		//TODO
 		comando cmd = new comando();
@@ -528,7 +526,6 @@ public class ClienteTCP {
 	}
 	
 	
-<<<<<<< HEAD
 	private static Node AdicionarCarrinho(Socket sock, int idPeca, int quantidade, String tamanho) {
 		comando cmd = new comando();
 		
@@ -580,11 +577,6 @@ public class ClienteTCP {
 	
 	
 	public static void mostrarPeca(Socket sock, Scanner sc, Node peca, String nif, String tipo) {
-=======
-=======
->>>>>>> parent of 9c4bf49... "Final" de TP1
-	public static void mostrarPeca(Scanner sc, Node peca, String nif, String tipo) {
->>>>>>> 9c4bf49cf82142d63e3059a6fe7b12bada33e795
 		Element pecaElement = (Element) peca.getChildNodes();
 		Element descricao = (Element) pecaElement.getElementsByTagName("Descrição").item(0).getChildNodes();
 		String caracteristicas = descricao.getElementsByTagName("Caracteristica").item(0).getTextContent();

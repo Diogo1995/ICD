@@ -3,6 +3,7 @@ import javax.xml.XMLConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 public class comando {
@@ -203,8 +204,6 @@ public class comando {
 		return cmd;
 	}
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
 	
 	public Document requestAdicionarCarrinho(String nif, int idPeca, String tamanho, int quantidade) {
 		Element adicionarCarrinho = cmd.createElement("adicionarCarrinho");
@@ -270,8 +269,48 @@ public class comando {
 		pecaElem.setAttribute("ID", idPeca);
 		pecaElem.setAttribute("Tamanho", tamanho);
 		pecaElem.setAttribute("Quantidade", quantidade);
+	
+		Element reply = cmd.createElement("reply");
 		
-=======
+		if(carrinho != null) {
+			carrinho.appendChild(pecaElem);
+			reply.appendChild(carrinho);
+		}
+		else {
+			Element carrinhoElem = todosUtilizadores.createElement("Carrinho");
+			carrinhoElem.appendChild(pecaElem);
+			utilizador.appendChild(carrinhoElem);
+			Element clone = (Element)cmd.importNode(carrinhoElem, true);
+			reply.appendChild(clone);
+		}
+		
+		Element adicionarCarrinho = (Element)cmd.getElementsByTagName("adicionarCarrinho").item(0);
+		adicionarCarrinho.appendChild(reply);
+		XMLDoc.writeDocument(todosUtilizadores, "utilizadoresCarrinho.xml");
+		try {
+			if(!XMLDoc.validDoc(todosUtilizadores, "utilizador.xsd", XMLConstants.W3C_XML_SCHEMA_NS_URI)) {
+				//todosUtilizadores.getDocumentElement().removeChild(utilizador);
+				//reply.appendChild(utilizadorVazio);
+				return cmd;
+			}
+			XMLDoc.writeDocument(todosUtilizadores, "utilizadorCarrinho.xml");
+			
+			/*NodeList todosUtilizadores = todosUtilizadores.getElementsByTagName("Utilizador");
+			for(int i = 0; i < todosUtilizadores.getLength(); i++) {
+				if(todosUtilizadores.item(i).getAttributes().getNamedItem("NIF").getTextContent().equals(nif)) {
+					Element clone = (Element) cmd.importNode(todosUtilizadores.item(i), true);
+					reply.appendChild(clone);
+				}
+			}*/
+			return cmd;
+		} catch (SAXException e) {
+			//e.printStackTrace();
+			//todosUtilizadores.getDocumentElement().removeChild(utilizador);
+			//reply.appendChild(utilizadorVazio);
+			return cmd;
+		}
+	}
+		
 	public Document requestTodosCarrinhos() {
 		Element todosCarrinhos = cmd.createElement("mostrarTodosCarrinhos");
 		Element request = cmd.createElement("request");
@@ -300,16 +339,12 @@ public class comando {
 		
 		return cmd;
 	}
-	
-=======
->>>>>>> parent of 9c4bf49... "Final" de TP1
 	/*
 	private Document replyConsultar() {  // usar no servidor
 		//TODO
 		//mudar para loja e tal
 		Document titulos=Poema.Consultar();
 		NodeList T = titulos.getElementsByTagName("título");
->>>>>>> 9c4bf49cf82142d63e3059a6fe7b12bada33e795
 		Element reply = cmd.createElement("reply");
 		
 		if(carrinho != null) {
@@ -341,7 +376,7 @@ public class comando {
 					Element clone = (Element) cmd.importNode(todosUtilizadores.item(i), true);
 					reply.appendChild(clone);
 				}
-			}*/
+			}
 			return cmd;
 		} catch (SAXException e) {
 			//e.printStackTrace();
@@ -350,6 +385,7 @@ public class comando {
 			return cmd;
 		}
 	}
+	*/
 	
 	
 	public Document requestAprovarCarrinho(String nif) {
@@ -448,37 +484,6 @@ public class comando {
 	}
 	
 	
-	public Document requestTodosCarrinhos() {
-		Element todosCarrinhos = cmd.createElement("mostrarTodosCarrinhos");
-		Element request = cmd.createElement("request");
-		todosCarrinhos.appendChild(request);
-		Element protocol = (Element) cmd.getElementsByTagName("protocol").item(0);
-		protocol.appendChild(todosCarrinhos);
-		return cmd;
-	}
-
-	public Document replyTodosCarrinhos() {
-		Document utilizadores = Loja.getUtilizadores();
-		NodeList carrinhos = utilizadores.getElementsByTagName("Carrinho");
-		
-		Element reply = cmd.createElement("reply");
-		
-<<<<<<< HEAD
-		for(int i = 0; i < carrinhos.getLength(); i++) {
-			String nif = carrinhos.item(i).getParentNode().getParentNode().getAttributes().getNamedItem("NIF").getTextContent();
-			((Element)carrinhos.item(i)).setAttribute("nif", nif);
-			Element carrinhoClone = (Element)cmd.importNode(carrinhos.item(i), true);
-			reply.appendChild(carrinhoClone);
-		}
-		
-		Element todosCarrinhos = (Element) cmd.getElementsByTagName("mostrarTodosCarrinhos").item(0);
-		
-		todosCarrinhos.appendChild(reply);
-		
-		return cmd;
-	}
-	
-	
 	public Document requestAdicionarPeca(String designacao, String seccao, String preco, String tipo) {
 		Element adicionarPeca = cmd.createElement("adicionarPeca");
 		Element request = cmd.createElement("request");
@@ -541,7 +546,6 @@ public class comando {
 		pecas.getDocumentElement().appendChild(pecaElem);
 
 		Element reply = cmd.createElement("reply");
-<<<<<<< HEAD
 		
 		XMLDoc.writeDocument(pecas, "peça.xml");
 		if(!XMLDoc.validDocXSD("peça.xml", "peça.xsd")) {
@@ -568,17 +572,7 @@ public class comando {
 			adicionarPeca.appendChild(reply);
 			
 			return cmd;
-=======
-=======
-		//TODO
->>>>>>> parent of 9c4bf49... "Final" de TP1
-		//mudar para loja e tal
-		Document poema = Poema.Obter(palavras);
-		if(poema!=null) {
-			Element p = (Element) poema.getElementsByTagName("poema").item(0);
-			Element clone = (Element) cmd.importNode(p, true);
-			reply.appendChild(clone);
->>>>>>> 9c4bf49cf82142d63e3059a6fe7b12bada33e795
+
 		}
 	}
 	
