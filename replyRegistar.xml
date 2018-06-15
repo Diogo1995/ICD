@@ -3,14 +3,11 @@
 <registar>
 <request>
 <nif>258741236</nif>
-<nome>Diogo Huehuehue</nome>
+<nome>Miguel Manuel</nome>
 <dataNasc>1994-08-12</dataNasc>
 </request>
 <reply>
-<Utilizador DataNasc="1992-11-23" NIF="258741236" Nome="Diogo Eyeyey">
-<Cliente/>
-</Utilizador>
-<Utilizador DataNasc="1994-08-12" NIF="258741236" Nome="Diogo Huehuehue">
+<Utilizador DataNasc="1992-11-23" NIF="258741236" Nome="Miguel Manuel">
 <Cliente/>
 </Utilizador>
 </reply>
